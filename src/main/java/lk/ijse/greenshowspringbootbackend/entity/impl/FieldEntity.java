@@ -23,11 +23,11 @@ public class FieldEntity {
     @OneToMany(mappedBy = "field")
     private List<CropEntity> Field_Code;
 
-    @OneToMany(mappedBy = "field")
-    private List<StaffDetails> fieldCode;
-
-    @OneToMany(mappedBy = "field")
-    private List<FieldDetails> field_code;
+//    @OneToMany(mappedBy = "field")
+//    private List<StaffDetails> fieldCode;
+//
+//    @OneToMany(mappedBy = "field")
+//    private List<FieldDetails> field_code;
 
     private String fieldImage1;
     private String fieldImage2;
