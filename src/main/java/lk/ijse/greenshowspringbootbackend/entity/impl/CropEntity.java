@@ -19,14 +19,11 @@ public class CropEntity implements SuperEntity {
     private String cropCode;
     private String cropName;
     private String scientificName;
+    private String cropImage;
     private String category;
     private String season;
-    @Column(columnDefinition = "LONGTEXT")
-    private String cropImage;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "cropList")
-    private List<LogEntity> longLis;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "cropList")
-    private List<FieldEntity> fieldList;
+
+    @ManyToOne
+    @JoinColumn(name = "Field_Code",nullable = false)
+    private FieldEntity field;
 }
