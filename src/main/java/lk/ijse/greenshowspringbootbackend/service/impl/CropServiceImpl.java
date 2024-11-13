@@ -4,7 +4,10 @@ import jakarta.transaction.Transactional;
 import lk.ijse.greenshowspringbootbackend.dao.CropDAO;
 import lk.ijse.greenshowspringbootbackend.dto.CropStatus;
 import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
+import lk.ijse.greenshowspringbootbackend.entity.impl.CropEntity;
+import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.service.CropService;
+import lk.ijse.greenshowspringbootbackend.util.AppUtil;
 import lk.ijse.greenshowspringbootbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +29,11 @@ public class CropServiceImpl implements CropService {
 
     @Override
     public void saveCrop(CropDTO cropDTO) {
-
+        cropDTO.getCropCode(AppUtil.generateCropCode());
+        CropEntity saveCrop = cropDAO.save(cropMapping.toCropEntity(cropDTO));
+        if (saveCrop == null) {
+            throw new DataPersistException("Crop Not Saved");
+        }
     }
 
     @Override
