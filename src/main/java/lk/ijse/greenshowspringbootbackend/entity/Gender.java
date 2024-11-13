@@ -1,5 +1,5 @@
 package lk.ijse.greenshowspringbootbackend.entity;
 
-public enum Gnder {
+public enum Gender {
     MALE,FEMALE
 }
