@@ -24,7 +24,7 @@ public class FieldEntity {
     private List<CropEntity> Field_Code;
 
 //    @OneToMany(mappedBy = "field")
-//    private List<StaffDetails> fieldCode;
+//    private List<StaffEntity> fieldCode;
 //
 //    @OneToMany(mappedBy = "field")
 //    private List<FieldDetails> field_code;

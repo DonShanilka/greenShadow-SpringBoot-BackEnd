@@ -39,8 +39,8 @@ public class StaffEntity {
     private List<StaffEquipmrntDetailsEntity> staffEquipmentDetailsList;
     @OneToMany(mappedBy = "staff" ,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<VehicalEntity> vehicleList;
-    @ManyToMany(mappedBy = "staffList" ,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<FieldEntity> fieldList;
+//    @ManyToMany(mappedBy = "staffList" ,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+//    private List<FieldEntity> fieldList;
     @ManyToMany(mappedBy = "staffList" ,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<LogEntity> logList;
 }
