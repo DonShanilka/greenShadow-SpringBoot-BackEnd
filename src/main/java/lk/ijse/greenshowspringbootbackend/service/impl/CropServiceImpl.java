@@ -26,15 +26,22 @@ public class CropServiceImpl implements CropService {
     @Autowired
     private Mapping cropMapping;
 
-
     @Override
     public void saveCrop(CropDTO cropDTO) {
-        cropDTO.getCropCode(AppUtil.generateCropCode());
-        CropEntity saveCrop = cropDAO.save(cropMapping.toCropEntity(cropDTO));
-        if (saveCrop == null) {
+        // Generate crop code if not already set
+        if (cropDTO.getCropCode() == null || cropDTO.getCropCode().isEmpty()) {
+            cropDTO.setCropCode(AppUtil.generateCropCode());
+        }
+        // Convert CropDTO to CropEntity using mapping logic
+        CropEntity cropEntity = cropMapping.toCropEntity(cropDTO);
+        // Save entity using DAO
+        CropEntity savedCrop = cropDAO.save(cropEntity);
+        // Throw an exception if save operation failed
+        if (savedCrop == null) {
             throw new DataPersistException("Crop Not Saved");
         }
     }
+
 
     @Override
     public List<CropDTO> getAllCrops() {

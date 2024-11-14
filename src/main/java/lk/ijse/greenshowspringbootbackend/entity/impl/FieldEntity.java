@@ -20,8 +20,8 @@ public class FieldEntity {
     private String fieldLocation;
     private Double extendSizeOfTheField;
 
-    @OneToMany(mappedBy = "field")
-    private List<CropEntity> Field_Code;
+//    @OneToMany(mappedBy = "field")
+//    private List<CropEntity> Field_Code;
 
 //    @OneToMany(mappedBy = "field")
 //    private List<StaffEntity> fieldCode;
