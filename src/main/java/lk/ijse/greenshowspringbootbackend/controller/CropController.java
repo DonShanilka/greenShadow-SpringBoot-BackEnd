@@ -31,5 +31,8 @@ public class CropController {
         }
     }
 
+    public void updateCrop(){
+
+    }
 
 }
