@@ -16,4 +16,5 @@ public class Equipment {
     private String name;
     private String type;
     private String status;
+    private int availableCount;
 }

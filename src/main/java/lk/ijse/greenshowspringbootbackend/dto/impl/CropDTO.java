@@ -1,5 +1,7 @@
 package lk.ijse.greenshowspringbootbackend.dto.impl;
 
+import lk.ijse.greenshowspringbootbackend.dto.CropStatus;
+import lk.ijse.greenshowspringbootbackend.dto.SuperDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CropDTO {
+public class CropDTO implements CropStatus, SuperDTO {
     private String cropCode;
     private String cropName;
     private String scientificName;
