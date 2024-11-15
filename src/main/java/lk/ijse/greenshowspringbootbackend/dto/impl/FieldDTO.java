@@ -16,8 +16,8 @@ public class FieldDTO implements SuperDTO, FieldStatus {
     private String fieldName;
     private String location;
     private double extentSize;
-    private List<String> crops;
-    private List<String> staff;
+    private List<CropDTO> crops;
+    private List<StaffDTO> staff;
     private String fieldImage1;
     private String fieldImage2;
 }

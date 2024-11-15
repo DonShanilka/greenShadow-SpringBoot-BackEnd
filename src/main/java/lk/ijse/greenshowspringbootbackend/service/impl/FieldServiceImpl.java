@@ -31,14 +31,9 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public void saveField(FieldDTO fieldDTO) {
-        if (fieldDTO.getFieldCode() == null || fieldDTO.getFieldCode().isEmpty()) {
-            fieldDTO.setFieldCode(AppUtil.generateCropCode());
-        }
-        Field field = mapping.toFieldEntity(fieldDTO);
-        Field savedField = fieldDAO.save(field);
-
-        if (savedField == null) {
-            throw new DataPersistException("Field Not Saved");
+        Field saveField = fieldDAO.save(mapping.toFieldEntity(fieldDTO));
+        if (saveField == null) {
+            throw new DataPersistException("Field save failed");
         }
     }
 

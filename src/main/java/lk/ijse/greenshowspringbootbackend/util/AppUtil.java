@@ -1,5 +1,7 @@
 package lk.ijse.greenshowspringbootbackend.util;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Base64;
 import java.util.UUID;
 
