@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CropDTO {
-    private String cropCode;
-    private String cropName;
-    private String scientificName;
-    private String image;
+public class VehicleDTO {
+    private String vehicleCode;
+    private String licensePlate;
     private String category;
-    private String season;
+    private String fuelType;
+    private String status;
+    private String remarks;
 }

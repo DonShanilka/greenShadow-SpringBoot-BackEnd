@@ -1,5 +1,6 @@
 package lk.ijse.greenshowspringbootbackend.controller;
 
+import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.service.CropService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
@@ -44,8 +45,8 @@ public class CropController {
             cropDTO.setScientificName(scientificName);
             cropDTO.setCategory(category);
             cropDTO.setSeason(season);
-            cropDTO.setCropImage(base64cropImage);
-          cropDTO.setFieldList(fieldList);
+            cropDTO.setImage(base64cropImage);
+//          cropDTO.setFieldList(fieldList);
 
             cropService.saveCrop(cropDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
