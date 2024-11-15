@@ -17,7 +17,9 @@ public class StaffDTO {
     private String gender;
     private Date joinedDate;
     private Date dob;
-    private String address;
+    private String addressLine1;
+    private String addressLine2;
+    private String addressLine3;
     private String contactNo;
     private String email;
     private String role;
