@@ -3,6 +3,8 @@ package lk.ijse.greenshowspringbootbackend.service.impl;
 import jakarta.transaction.Transactional;
 import lk.ijse.greenshowspringbootbackend.dao.CropDAO;
 import lk.ijse.greenshowspringbootbackend.dto.CropStatus;
+import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
+import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.service.CropService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
@@ -31,15 +33,14 @@ public class CropServiceImpl implements CropService {
             cropDTO.setCropCode(AppUtil.generateCropCode());
         }
         // Convert CropDTO to CropEntity using mapping logic
-        CropEntity cropEntity = cropMapping.toCropEntity(cropDTO);
+        Crop cropEntity = cropMapping.toCropEntity(cropDTO);
         // Save entity using DAO
-        CropEntity savedCrop = cropDAO.save(cropEntity);
+        Crop savedCrop = cropDAO.save(cropEntity);
         // Throw an exception if save operation failed
         if (savedCrop == null) {
             throw new DataPersistException("Crop Not Saved");
         }
     }
-
 
     @Override
     public List<CropDTO> getAllCrops() {

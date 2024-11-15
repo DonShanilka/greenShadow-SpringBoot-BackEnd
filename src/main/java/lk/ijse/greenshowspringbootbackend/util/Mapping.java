@@ -1,5 +1,7 @@
 package lk.ijse.greenshowspringbootbackend.util;
 
+import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
+import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +15,13 @@ public class Mapping {
     private ModelMapper modelMapper;
 
 //    for crop mapping
-    public CropEntity toCropEntity(CropDTO cropDTO) {
-        return modelMapper.map(cropDTO, CropEntity.class);
+    public Crop toCropEntity(CropDTO cropDTO) {
+        return modelMapper.map(cropDTO, Crop.class);
     }
-    public CropDTO toCropDTO(CropEntity cropEntity) {
+    public CropDTO toCropDTO(Crop cropEntity) {
         return modelMapper.map(cropEntity, CropDTO.class);
     }
-    public List<CropDTO> cropDTOList(List<CropEntity> cropEntityList) {
+    public List<CropDTO> cropDTOList(List<Crop> cropEntityList) {
         return modelMapper.map(cropEntityList, new TypeToken<List<CropDTO>>() {}.getType());
     }
 }
