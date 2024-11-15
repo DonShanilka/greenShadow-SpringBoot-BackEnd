@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "fieldStaffAssociation")
 public class FieldStaffAssociation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     @ManyToOne
     private Field field;
     @ManyToOne

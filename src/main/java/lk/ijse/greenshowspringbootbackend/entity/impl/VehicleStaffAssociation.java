@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "vehicleStaffAssociation")
 public class VehicleStaffAssociation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     @ManyToOne
     private Vehicle vehicle;
     @ManyToOne

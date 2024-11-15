@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "logCropAssociation")
 public class LogCropAssociation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     @ManyToOne
     private Log log;
     @ManyToOne
