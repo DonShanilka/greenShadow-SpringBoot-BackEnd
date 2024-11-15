@@ -1,7 +1,9 @@
 package lk.ijse.greenshowspringbootbackend.util;
 
 import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
+import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
+import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,13 @@ public class Mapping {
     }
 
     // for Field mapping
-
+    public Field toFieldEntity(FieldDTO fieldDTO) {
+        return modelMapper.map(fieldDTO, Field.class);
+    }
+    public FieldDTO toFieldDTO(Field fieldEntity) {
+        return modelMapper.map(fieldEntity, FieldDTO.class);
+    }
+    public List<FieldDTO> cropFieldList(List<Field> fieldEntityList) {
+        return modelMapper.map(fieldEntityList, new TypeToken<List<FieldDTO>>() {}.getType());
+    }
 }
