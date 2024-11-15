@@ -1,5 +1,6 @@
-package lk.ijse.greenshowspringbootbackend.dto.impl;
+package lk.ijse.greenshowspringbootbackend.entity.impl;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class StaffDTO {
+@Entity
+@Table(name = "staff")
+public class Staff {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String firstName;
     private String lastName;
