@@ -40,7 +40,7 @@ public class Staff {
     @JoinColumn(name = "field_code", nullable = false)
     private Field field_id;
 
-    @ManyToMany(mappedBy = "stafList", cascade = {CascadeType.ALL})
-    private List<Staff> staffList;
+    @ManyToMany(mappedBy = "staffList", cascade = {CascadeType.ALL})
+    private List<Log> logList;
 
 }
