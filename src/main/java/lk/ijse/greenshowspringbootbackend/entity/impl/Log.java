@@ -20,4 +20,5 @@ public class Log {
     private Date logDate;
     private String observationDetails;
     private String observedImage;
+
 }

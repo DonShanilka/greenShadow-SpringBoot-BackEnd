@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,4 +39,8 @@ public class Staff {
     @ManyToOne
     @JoinColumn(name = "field_code", nullable = false)
     private Field field_id;
+
+    @ManyToMany(mappedBy = "stafList", cascade = {CascadeType.ALL})
+    private List<Staff> staffList;
+
 }
