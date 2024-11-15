@@ -34,11 +34,11 @@ public class FieldServiceImpl implements FieldService {
         if (fieldDTO.getFieldCode() == null || fieldDTO.getFieldCode().isEmpty()) {
             fieldDTO.setFieldCode(AppUtil.generateCropCode());
         }
-        Field field = mapping.to(fieldDTO);
-        Crop savedCrop = cropDAO.save(cropEntity);
-        // Throw an exception if save operation failed
-        if (savedCrop == null) {
-            throw new DataPersistException("Crop Not Saved");
+        Field field = mapping.toFieldEntity(fieldDTO);
+        Field savedField = fieldDAO.save(field);
+
+        if (savedField == null) {
+            throw new DataPersistException("Field Not Saved");
         }
     }
 
