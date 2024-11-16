@@ -57,10 +57,13 @@ public class CropServiceImpl implements CropService {
         cropRepo.save(cropEntity);
     }
 
-    @Override
-    public void updateFieldCrops(CropDTO cropDTO) {
-
-    }
+//    @Override
+//    public void updateFieldCrops(CropDTO cropDTO) {
+//        if (!cropRepo.existsById(cropDTO.getCropCode())) {
+//            throw new CropNotFoundException("Crop ID " + cropDTO.getCropCode() + " not found");
+//        }
+//        cropRepo.save(mapping.mapCropDtoToEntity(cropDTO));
+//    }
 
     @Override
     public void deleteCrop(String cropCode) {

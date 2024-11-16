@@ -46,8 +46,10 @@ public class CropController {
         }
     }
 
-    public void updateCrop(){
-
+    @DeleteMapping("/{cropCode}")
+    public ResponseEntity<Void> deleteCrop(@PathVariable("cropCode") String cropCode) {
+        cropService.deleteCrop(cropCode);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
