@@ -10,5 +10,4 @@ public interface CropService {
     void updateFieldCrops(String cropCode,CropDTO cropDTO);
     void deleteCrop(String cropCode);
     List<CropDTO> getAllCrops();
-    String findLastCropCode();
 }

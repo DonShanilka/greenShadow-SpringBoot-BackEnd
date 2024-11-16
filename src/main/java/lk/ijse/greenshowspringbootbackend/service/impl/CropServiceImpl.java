@@ -83,12 +83,7 @@ public class CropServiceImpl implements CropService {
 
     @Override
     public List<CropDTO> getAllCrops() {
-        return List.of();
+        return mapping.mapCropEntitiesToDtos(cropRepo.findAll());
     }
 
-    @Override
-    public String findLastCropCode() {
-//        return cropRepo.findLastCropCode();
-        return null;
-    }
 }
