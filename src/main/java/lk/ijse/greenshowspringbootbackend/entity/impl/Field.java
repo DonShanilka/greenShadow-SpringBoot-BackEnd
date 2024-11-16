@@ -17,13 +17,13 @@ public class Field {
     private String fieldCode;
     private String fieldName;
     private String location;
-    private double extentSize;
+    private String extentSize;
 
 //    @OneToMany(mappedBy = "field_Id")
 //    private List<Crop> crops;
 
-    @OneToMany(mappedBy = "field_id")
-    private List<Staff> staff;
+//    @OneToMany(mappedBy = "field_id")
+//    private List<Staff> staff;
 
     @Column(columnDefinition = "LONGTEXT")
     private String fieldImage1;

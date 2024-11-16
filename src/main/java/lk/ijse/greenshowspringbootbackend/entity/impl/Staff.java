@@ -36,9 +36,9 @@ public class Staff {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToOne
-    @JoinColumn(name = "field_code", nullable = false)
-    private Field field_id;
+//    @ManyToOne
+//    @JoinColumn(name = "field_code", nullable = false)
+//    private Field field_id;
 
     @ManyToMany(mappedBy = "staffList", cascade = {CascadeType.ALL})
     private List<Log> logList;

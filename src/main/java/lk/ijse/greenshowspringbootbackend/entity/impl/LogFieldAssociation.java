@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "logFieldAssociation")
 public class LogFieldAssociation {
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @ManyToOne
     private Log log;

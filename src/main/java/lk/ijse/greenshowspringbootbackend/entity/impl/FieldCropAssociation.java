@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "fieldCropAssociation")
 public class FieldCropAssociation {
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @ManyToOne
     private Field field;

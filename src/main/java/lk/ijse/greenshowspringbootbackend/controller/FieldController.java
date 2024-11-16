@@ -28,11 +28,9 @@ public class FieldController {
     public ResponseEntity<Void> saveField(
             @RequestPart("fieldName") String fieldName,
             @RequestPart("location") String location,
-            @RequestPart("extentSize") Double extentSize,
+            @RequestPart("extentSize") String extentSize,
             @RequestPart("fieldImage1") MultipartFile fieldImage1,
-            @RequestPart("fieldImage2") MultipartFile fieldImage2,
-            @RequestPart("crops") String cropsJson,
-            @RequestPart("staff") String staffJson
+            @RequestPart("fieldImage2") MultipartFile fieldImage2
     ) {
 
         String base64proPic1 = "";
@@ -46,10 +44,6 @@ public class FieldController {
             byte[] byteProPic2 = fieldImage2.getBytes();
             base64proPic2 = AppUtil.imageBase64(byteProPic2);
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            List<CropDTO> crops = objectMapper.readValue(cropsJson, List.class);
-            List<StaffDTO> staff = objectMapper.readValue(staffJson, List.class);
-
             String fieldId = AppUtil.generateCropCode();
 
             var fieldDto = new FieldDTO();
@@ -59,8 +53,6 @@ public class FieldController {
             fieldDto.setExtentSize(extentSize);
             fieldDto.setFieldImage1(base64proPic1);
             fieldDto.setFieldImage2(base64proPic2);
-            fieldDto.setCrops(crops);
-            fieldDto.setStaff(staff);
             fieldService.saveField(fieldDto);
 
             return new ResponseEntity<>(HttpStatus.CREATED);

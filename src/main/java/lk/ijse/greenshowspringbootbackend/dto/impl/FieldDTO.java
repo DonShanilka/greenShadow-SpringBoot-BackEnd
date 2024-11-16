@@ -16,11 +16,7 @@ public class FieldDTO implements SuperDTO, FieldStatus {
     private String fieldCode;
     private String fieldName;
     private String location;
-    private double extentSize;
-    @JsonIgnore
-    private List<CropDTO> crops;
-    @JsonIgnore
-    private List<StaffDTO> staff;
+    private String extentSize;
     private String fieldImage1;
     private String fieldImage2;
 }
