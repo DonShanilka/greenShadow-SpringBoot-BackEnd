@@ -46,6 +46,29 @@ public class CropController {
         }
     }
 
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateCrops(
+            @RequestPart("cropCode") String cropCode,
+            @RequestPart("cropName") String cropName,
+            @RequestPart("scientificName") String scientificName,
+            @RequestPart("cropImage") MultipartFile cropImage,
+            @RequestPart("category") String category,
+            @RequestPart("season") String season
+    ) {
+        try {
+            byte[] imageBytes = cropImage.getBytes();
+            String imageBase64 = AppUtil.imageBase64(imageBytes);
+
+            cropService.updateFieldCrops(new CropDTO(cropCode,cropName,scientificName,imageBase64,category,season));
+
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DataPersistException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @DeleteMapping("/{cropCode}")
     public ResponseEntity<Void> deleteCrop(@PathVariable("cropCode") String cropCode) {
         cropService.deleteCrop(cropCode);
