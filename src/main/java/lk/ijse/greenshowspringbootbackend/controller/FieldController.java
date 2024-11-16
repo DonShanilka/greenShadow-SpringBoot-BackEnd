@@ -44,10 +44,10 @@ public class FieldController {
             byte[] byteProPic2 = fieldImage2.getBytes();
             base64proPic2 = AppUtil.imageBase64(byteProPic2);
 
-            String fieldId = AppUtil.generateCropCode();
+//            String fieldId = AppUtil.generateCropCode();
 
             var fieldDto = new FieldDTO();
-            fieldDto.setFieldCode(fieldId);
+//            fieldDto.setFieldCode(fieldId);
             fieldDto.setFieldName(fieldName);
             fieldDto.setLocation(location);
             fieldDto.setExtentSize(extentSize);

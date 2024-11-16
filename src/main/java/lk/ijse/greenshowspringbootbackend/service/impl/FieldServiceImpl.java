@@ -31,7 +31,7 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public void saveField(FieldDTO fieldDTO) {
-        Field saveField = fieldDAO.save(mapping.toFieldEntity(fieldDTO));
+        Field saveField = fieldDAO.save(mapping.mapFieldDtoToEntity(fieldDTO));
         if (saveField == null) {
             throw new DataPersistException("Field save failed");
         }

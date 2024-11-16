@@ -1,9 +1,14 @@
 package lk.ijse.greenshowspringbootbackend.util;
 
+import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Base64;
 import java.util.UUID;
 
 public class AppUtil {
+
+    private CropRepo cropRepository;
 
     public static String imageBase64(byte[] image){
         return Base64.getEncoder().encodeToString(image);

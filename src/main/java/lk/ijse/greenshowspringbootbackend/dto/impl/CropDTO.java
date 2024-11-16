@@ -16,4 +16,12 @@ public class CropDTO implements CropStatus, SuperDTO {
     private String cropImage;
     private String category;
     private String season;
+
+    public CropDTO(String cropName, String scientificName, String imageBase64, String category, String season) {
+        this.cropName = cropName;
+        this.scientificName = scientificName;
+        this.cropImage = imageBase64;
+        this.category = category;
+        this.season = season;
+    }
 }
