@@ -24,4 +24,16 @@ public class AppUtil {
         }
     }
 
+    public static String generateCropCode(String lastCropCode) {
+        if (lastCropCode == null || lastCropCode.isEmpty() || !lastCropCode.matches("^C\\d+$")) {
+            return "C001";
+        } else {
+            String numericPart = lastCropCode.substring(3);
+            int numericValue = Integer.parseInt(numericPart);
+            int nextNumericValue = numericValue + 1;
+            String nextNumericPart = String.format("%0" + numericPart.length() + "d", nextNumericValue);
+            return "C00" + nextNumericPart;
+        }
+    }
+
 }
