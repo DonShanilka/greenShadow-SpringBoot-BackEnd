@@ -4,9 +4,6 @@ import java.util.Base64;
 import java.util.UUID;
 
 public class AppUtil {
-    public static String generateCropCode(){
-        return "Crop" + UUID.randomUUID();
-    }
 
     public static String imageBase64(byte[] image){
         return Base64.getEncoder().encodeToString(image);
@@ -33,6 +30,18 @@ public class AppUtil {
             int nextNumericValue = numericValue + 1;
             String nextNumericPart = String.format("%0" + numericPart.length() + "d", nextNumericValue);
             return "C00" + nextNumericPart;
+        }
+    }
+
+    public static String generateLogCode(String lastLogCode) {
+        if (lastLogCode == null || lastLogCode.isEmpty() || !lastLogCode.matches("^L\\d+$")) {
+            return "L001";
+        } else {
+            String numericPart = lastLogCode.substring(3);
+            int numericValue = Integer.parseInt(numericPart);
+            int nextNumericValue = numericValue + 1;
+            String nextNumericPart = String.format("%0" + numericPart.length() + "d", nextNumericValue);
+            return "L00" + nextNumericPart;
         }
     }
 
