@@ -35,7 +35,17 @@ public class FieldController {
             @RequestPart("staff") String staffJson
     ) {
 
+        String base64proPic1 = "";
+        String base64proPic2 = "";
+
         try {
+
+            byte[] byteProPic1 = fieldImage1.getBytes();
+            base64proPic1 = AppUtil.imageBase64(byteProPic1);
+
+            byte[] byteProPic2 = fieldImage2.getBytes();
+            base64proPic2 = AppUtil.imageBase64(byteProPic2);
+
             ObjectMapper objectMapper = new ObjectMapper();
             List<CropDTO> crops = objectMapper.readValue(cropsJson, List.class);
             List<StaffDTO> staff = objectMapper.readValue(staffJson, List.class);
@@ -47,8 +57,8 @@ public class FieldController {
             fieldDto.setFieldName(fieldName);
             fieldDto.setLocation(location);
             fieldDto.setExtentSize(extentSize);
-            fieldDto.setFieldImage1(AppUtil.imageBase64(fieldImage1.getBytes()));
-            fieldDto.setFieldImage2(AppUtil.imageBase64(fieldImage2.getBytes()));
+            fieldDto.setFieldImage1(base64proPic1);
+            fieldDto.setFieldImage2(base64proPic2);
             fieldDto.setCrops(crops);
             fieldDto.setStaff(staff);
             fieldService.saveField(fieldDto);

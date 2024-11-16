@@ -19,8 +19,8 @@ public class Field {
     private String location;
     private double extentSize;
 
-    @OneToMany(mappedBy = "field_Id")
-    private List<Crop> crops;
+//    @OneToMany(mappedBy = "field_Id")
+//    private List<Crop> crops;
 
     @OneToMany(mappedBy = "field_id")
     private List<Staff> staff;

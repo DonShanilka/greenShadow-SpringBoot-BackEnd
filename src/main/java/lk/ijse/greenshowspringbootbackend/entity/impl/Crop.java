@@ -16,11 +16,9 @@ public class Crop {
     private String cropName;
     private String scientificName;
     @Column(columnDefinition = "LONGTEXT")
-    private String image;
+    private String cropImage;
     private String category;
     private String season;
 
-    @ManyToOne
-    @JoinColumn(name = "field_code", nullable = false)
-    private Field field_Id;
+
 }

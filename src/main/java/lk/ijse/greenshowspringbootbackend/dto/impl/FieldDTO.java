@@ -1,5 +1,6 @@
 package lk.ijse.greenshowspringbootbackend.dto.impl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lk.ijse.greenshowspringbootbackend.dto.FieldStatus;
 import lk.ijse.greenshowspringbootbackend.dto.SuperDTO;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,9 @@ public class FieldDTO implements SuperDTO, FieldStatus {
     private String fieldName;
     private String location;
     private double extentSize;
+    @JsonIgnore
     private List<CropDTO> crops;
+    @JsonIgnore
     private List<StaffDTO> staff;
     private String fieldImage1;
     private String fieldImage2;

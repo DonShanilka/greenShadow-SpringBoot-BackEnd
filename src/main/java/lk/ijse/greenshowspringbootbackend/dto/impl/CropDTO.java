@@ -13,7 +13,8 @@ public class CropDTO implements CropStatus, SuperDTO {
     private String cropCode;
     private String cropName;
     private String scientificName;
-    private String image;
+    private String cropImage;
     private String category;
     private String season;
+//    private String fieldCode;
 }
