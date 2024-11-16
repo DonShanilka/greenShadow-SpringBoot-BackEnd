@@ -1,9 +1,7 @@
 package lk.ijse.greenshowspringbootbackend.util;
 
-import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
-import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
-import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
-import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
+import lk.ijse.greenshowspringbootbackend.dto.impl.*;
+import lk.ijse.greenshowspringbootbackend.entity.impl.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +15,50 @@ public class Mapping {
     private ModelMapper modelMapper;
 
 //    for crop mapping
-    public Crop toCropEntity(CropDTO cropDTO) {
-        return modelMapper.map(cropDTO, Crop.class);
-    }
-    public CropDTO toCropDTO(Crop cropEntity) {
-        return modelMapper.map(cropEntity, CropDTO.class);
-    }
-    public List<CropDTO> cropDTOList(List<Crop> cropEntityList) {
-        return modelMapper.map(cropEntityList, new TypeToken<List<CropDTO>>() {}.getType());
+public Field mapFieldDtoToEntity(FieldDTO fieldDTO) {
+    return modelMapper.map(fieldDTO, Field.class);
+}
+    public List<FieldDTO> mapFieldEntitiesToDtos(List<Field> fieldEntities) {
+        return modelMapper.map(fieldEntities, new TypeToken<List<FieldDTO>>() {}.getType());
     }
 
-    // for Field mapping
-    public Field toFieldEntity(FieldDTO fieldDTO) {
-        return modelMapper.map(fieldDTO, Field.class);
+    public Crop mapCropDtoToEntity(CropDTO cropDTO) {
+        return modelMapper.map(cropDTO, Crop.class);
     }
-    public FieldDTO toFieldDTO(Field fieldEntity) {
-        return modelMapper.map(fieldEntity, FieldDTO.class);
+
+    public List<CropDTO> mapCropEntitiesToDtos(List<Crop> cropEntities) {
+        return modelMapper.map(cropEntities, new TypeToken<List<CropDTO>>() {}.getType());
     }
-    public List<FieldDTO> cropFieldList(List<Field> fieldEntityList) {
-        return modelMapper.map(fieldEntityList, new TypeToken<List<FieldDTO>>() {}.getType());
+
+    public Log mapLogDtoToEntity(LogDTO logDTO) {
+        return modelMapper.map(logDTO, Log.class);
+    }
+
+    public List<LogDTO> mapLogEntitiesToDtos(List<Log> logEntities) {
+        return modelMapper.map(logEntities, new TypeToken<List<LogDTO>>() {}.getType());
+    }
+
+    public Staff mapStaffDtoToEntity(StaffDTO staffDTO) {
+        return modelMapper.map(staffDTO, Staff.class);
+    }
+
+    public List<StaffDTO> mapStaffEntitiesToDtos(List<Staff> staffEntities) {
+        return modelMapper.map(staffEntities, new TypeToken<List<StaffDTO>>() {}.getType());
+    }
+
+    public Vehicle mapVehicleDtoToEntity(VehicleDTO vehicleDTO) {
+        return modelMapper.map(vehicleDTO, Vehicle.class);
+    }
+
+    public Equipment mapEquipmentDtoToEntity(EquipmentDTO equipmentDTO) {
+        return modelMapper.map(equipmentDTO, Equipment.class);
+    }
+
+    public List<EquipmentDTO> mapEquipmentEntitiesToDtos(List<Equipment> equipmentEntities) {
+        return modelMapper.map(equipmentEntities, new TypeToken<List<EquipmentDTO>>() {}.getType());
+    }
+
+    public List<VehicleDTO> mapVehicleEntitiesToDtos(List<Vehicle> vehicleEntities) {
+        return modelMapper.map(vehicleEntities, new TypeToken<List<VehicleDTO>>() {}.getType());
     }
 }
