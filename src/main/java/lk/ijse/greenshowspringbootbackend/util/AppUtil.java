@@ -68,4 +68,16 @@ public class AppUtil {
             return "E00" + nextNumericPart;
         }
     }
+
+    public static String generateVehicleCode(String lastVehicleCode) {
+        if (lastVehicleCode == null || lastVehicleCode.isEmpty() || !lastVehicleCode.matches("^V\\d+$")) {
+            return "V001";
+        } else {
+            String numericPart = lastVehicleCode.substring(3);
+            int numericValue = Integer.parseInt(numericPart);
+            int nextNumericValue = numericValue + 1;
+            String nextNumericPart = String.format("%0" + numericPart.length() + "d", nextNumericValue);
+            return "V00" + nextNumericPart;
+        }
+    }
 }
