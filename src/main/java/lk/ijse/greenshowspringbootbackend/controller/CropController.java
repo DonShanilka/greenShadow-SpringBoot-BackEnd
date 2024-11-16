@@ -46,7 +46,7 @@ public class CropController {
         }
     }
 
-    @PutMapping(value = "{cropCode}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "{cropCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void updateCrops(
             @RequestPart("cropName") String cropName,
             @RequestPart("scientificName") String scientificName,
