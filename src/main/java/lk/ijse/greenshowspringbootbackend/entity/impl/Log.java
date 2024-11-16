@@ -21,11 +21,21 @@ public class Log {
     @Column(columnDefinition = "LONGTEXT")
     private String observedImage;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "staff_log_details",
-            joinColumns = @JoinColumn(name = "logCode"),
-            inverseJoinColumns = @JoinColumn(name = "memberCode")
-    )
-    private List<Staff> staffList;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "log_field_details",
+            joinColumns = @JoinColumn(name = "log_id"),
+            inverseJoinColumns = @JoinColumn(name = "field_id"))
+    private List<Field> fields;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "log_crop_details",
+            joinColumns = @JoinColumn(name = "log_id"),
+            inverseJoinColumns = @JoinColumn(name = "crop_id"))
+    private List<Crop> crops;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "log_staff_details",
+            joinColumns = @JoinColumn(name = "log_id"),
+            inverseJoinColumns = @JoinColumn(name = "staff_id"))
+    private List<Staff> staffs;
 }

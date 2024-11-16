@@ -36,11 +36,21 @@ public class Staff {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @ManyToOne
-//    @JoinColumn(name = "field_code", nullable = false)
-//    private Field field_id;
+    @ManyToMany(mappedBy = "staffs", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Log> logs;
 
-    @ManyToMany(mappedBy = "staffList", cascade = {CascadeType.ALL})
-    private List<Log> logList;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "field_staff_details",
+            joinColumns = @JoinColumn(name = "staff_id"),
+            inverseJoinColumns = @JoinColumn(name = "field_id")
+    )
+    private List<Field> fields;
+
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    private List<Vehicle> vehicles;
+
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    private List<Equipment> equipment;
 
 }

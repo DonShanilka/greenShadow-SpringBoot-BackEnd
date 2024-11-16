@@ -18,21 +18,20 @@ public class Field {
     private String fieldName;
     private String location;
     private String extentSize;
-
-//    @OneToMany(mappedBy = "field_Id")
-//    private List<Crop> crops;
-
-//    @OneToMany(mappedBy = "field_id")
-//    private List<Staff> staff;
-
     @Column(columnDefinition = "LONGTEXT")
     private String fieldImage1;
-
     @Column(columnDefinition = "LONGTEXT")
     private String fieldImage2;
 
-    @OneToMany(mappedBy = "field")
-    private List<FieldCropAssociation> cropAssociations;
-    @OneToMany(mappedBy = "field")
-    private List<FieldStaffAssociation> staffAssociations;
+    @ManyToMany(mappedBy = "fields", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Crop> crops;
+
+    @ManyToMany(mappedBy = "fields", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Log> logs;
+
+    @ManyToMany(mappedBy = "fields", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Staff> staffs;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    private List<Equipment> equipment;
 }

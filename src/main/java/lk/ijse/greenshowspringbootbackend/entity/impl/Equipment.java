@@ -17,4 +17,11 @@ public class Equipment {
     private String type;
     private String status;
     private int availableCount;
+
+    @ManyToOne
+    @JoinColumn(name = "staff_id")
+    Staff staff;
+    @ManyToOne
+    @JoinColumn(name = "field_id")
+    Field field;
 }
