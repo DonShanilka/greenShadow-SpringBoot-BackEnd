@@ -57,4 +57,15 @@ public class AppUtil {
         }
     }
 
+    public static String generateEquipmentId(String lastEquipmentId) {
+        if (lastEquipmentId == null || lastEquipmentId.isEmpty() || !lastEquipmentId.matches("^E\\d+$")) {
+            return "E001";
+        } else {
+            String numericPart = lastEquipmentId.substring(3);
+            int numericValue = Integer.parseInt(numericPart);
+            int nextNumericValue = numericValue + 1;
+            String nextNumericPart = String.format("%0" + numericPart.length() + "d", nextNumericValue);
+            return "E00" + nextNumericPart;
+        }
+    }
 }
