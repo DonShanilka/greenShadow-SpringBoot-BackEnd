@@ -31,23 +31,9 @@ public class CropController {
             @RequestPart("season") String season
     ) {
 
-        String base64cropImage = "";
 
         try {
-            byte[] byteCropImg = cropImage.getBytes();
-            base64cropImage = AppUtil.imageBase64(byteCropImg);
 
-            String cropId = AppUtil.generateCropCode();
-
-            var cropDTO = new CropDTO();
-            cropDTO.setCropCode(cropId);
-            cropDTO.setCropName(cropName);
-            cropDTO.setScientificName(scientificName);
-            cropDTO.setCropImage(base64cropImage);
-            cropDTO.setCategory(category);
-            cropDTO.setSeason(season);
-
-            cropService.saveCrop(cropDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
