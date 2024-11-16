@@ -6,9 +6,9 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
 import java.util.List;
 
 public interface CropService {
-    void saveCrop(CropDTO cropDTO);
+    void saveFieldCrops(CropDTO cropDTO);
+    void updateFieldCrops(CropDTO cropDTO);
+    void deleteCrop(String cropCode);
     List<CropDTO> getAllCrops();
-    CropStatus getCropById(String cropCode);
-    void deleteCropById(String cropCode);
-    void updateCrop(String cropCode,CropDTO cropDTO);
+    String findLastCropCode();
 }
