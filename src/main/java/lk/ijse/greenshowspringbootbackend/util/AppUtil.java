@@ -45,4 +45,16 @@ public class AppUtil {
         }
     }
 
+    public static String generateStaffId(String lastStaffId) {
+        if (lastStaffId == null || lastStaffId.isEmpty() || !lastStaffId.matches("^S\\d+$")) {
+            return "S001";
+        } else {
+            String numericPart = lastStaffId.substring(3);
+            int numericValue = Integer.parseInt(numericPart);
+            int nextNumericValue = numericValue + 1;
+            String nextNumericPart = String.format("%0" + numericPart.length() + "d", nextNumericValue);
+            return "S00" + nextNumericPart;
+        }
+    }
+
 }
