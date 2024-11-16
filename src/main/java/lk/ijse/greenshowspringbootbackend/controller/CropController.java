@@ -46,27 +46,34 @@ public class CropController {
         }
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateCrops(
-            @RequestPart("cropCode") String cropCode,
+    @PutMapping(value = "{cropCode}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void updateCrops(
             @RequestPart("cropName") String cropName,
             @RequestPart("scientificName") String scientificName,
             @RequestPart("cropImage") MultipartFile cropImage,
             @RequestPart("category") String category,
-            @RequestPart("season") String season
+            @RequestPart("season") String season,
+            @PathVariable("cropCode") String cropCode
     ) {
+
+        String imageBase64 = "";
+
         try {
             byte[] imageBytes = cropImage.getBytes();
-            String imageBase64 = AppUtil.imageBase64(imageBytes);
-
-            cropService.updateFieldCrops(new CropDTO(cropCode,cropName,scientificName,imageBase64,category,season));
-
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (DataPersistException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            imageBase64 = AppUtil.imageBase64(imageBytes);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
         }
+
+        var dtos = new CropDTO();
+        dtos.setCropCode(cropCode);
+        dtos.setCropName(cropName);
+        dtos.setScientificName(scientificName);
+        dtos.setCropImage(imageBase64);
+        dtos.setCategory(category);
+        dtos.setSeason(season);
+
+        cropService.updateFieldCrops(cropCode,dtos);
     }
 
     @DeleteMapping("/{cropCode}")
