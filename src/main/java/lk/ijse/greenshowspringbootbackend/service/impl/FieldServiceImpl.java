@@ -1,9 +1,7 @@
 package lk.ijse.greenshowspringbootbackend.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.greenshowspringbootbackend.dao.FieldDAO;
 import lk.ijse.greenshowspringbootbackend.dto.CropStatus;
-import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.FieldCropDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
@@ -16,12 +14,10 @@ import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.service.FieldService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
 import lk.ijse.greenshowspringbootbackend.util.Mapping;
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
