@@ -4,9 +4,11 @@ import jakarta.transaction.Transactional;
 import lk.ijse.greenshowspringbootbackend.dao.FieldDAO;
 import lk.ijse.greenshowspringbootbackend.dto.CropStatus;
 import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
+import lk.ijse.greenshowspringbootbackend.dto.impl.FieldCropDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
+import lk.ijse.greenshowspringbootbackend.exception.CropNotFoundException;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
@@ -75,9 +77,23 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public void saveFieldCrops(FieldDTO fieldDTO) {
-        Optional<Field> optionalField = fieldRepo.findById(fieldDTO.getFieldCode());
-        Optional<Crop> optionalCrop = cropRepo.findById()
+    public void saveFieldCrops(FieldCropDTO fieldCropDTO) throws FileNotFoundException {
+        Optional<Field> optionalField = fieldRepo.findById(fieldCropDTO.getFieldCode());
+        Optional<Crop> optionalCrop = cropRepo.findById(fieldCropDTO.getCropCode());
+
+        if (!optionalField.isPresent()) {
+            throw new FileNotFoundException("Field ID " + fieldCropDTO.getFieldCode() + " does not exist");
+        } else if (!optionalCrop.isPresent()) {
+            throw new CropNotFoundException("Crop ID " + fieldCropDTO.getCropCode() + " does not exist");
+        }
+        Field field = optionalField.get();
+        Crop crop = optionalCrop.get();
+        if (field.getCrops().contains(crop)) {
+            throw new DataPersistException(fieldCropDTO.getFieldCode() + " Field Already Exists This Crop" + crop.getCropCode());
+        }
+        field.getCrops().add(crop);
+        crop.getFields().add(field);
+        fieldRepo.save(field);
     }
 
     @Override
