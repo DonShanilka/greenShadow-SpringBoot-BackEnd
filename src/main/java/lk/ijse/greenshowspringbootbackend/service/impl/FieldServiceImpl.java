@@ -25,30 +25,20 @@ public class FieldServiceImpl implements FieldService {
 
     @Autowired
     private FieldRepo fieldRepo;
-
     @Autowired
     private Mapping mapping;
-
-    public String generateCropId() {
-        // Fetch the last crop ID
-        String lastId = fieldRepo.findLastCropCode();
-
-        if (lastId != null && lastId.startsWith("F")) {
-            // Extract the numeric part and increment
-            int lastNumber = Integer.parseInt(lastId.substring(1));
-            return String.format("F%03d", lastNumber + 1);
-        } else {
-            // Default ID for the first entry
-            return "F001";
-        }
-    }
+    @Autowired
+    private AppUtil appUtil;
 
     @Override
     public void saveField(FieldDTO fieldDTO) {
-        Field saveField = fieldRepo.save(mapping.mapFieldDtoToEntity(fieldDTO));
-        if (saveField == null) {
-            throw new DataPersistException("Field save failed");
+        String newCropId = appUtil.generateFieldId();
+        if (fieldRepo.existsById(newCropId)) {
+            throw new DataPersistException("Crop ID " + newCropId + " already exists");
         }
+        Field field = mapping.mapFieldDtoToEntity(fieldDTO);
+        field.setFieldCode(newCropId);
+        fieldRepo.save(field);
     }
 
     @Override
