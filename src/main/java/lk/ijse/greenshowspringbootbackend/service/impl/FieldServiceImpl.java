@@ -98,7 +98,7 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public void deleteFieldCrops(String fieldCode, String cropCode) throws FileNotFoundException {
+    public void deleteFieldCrops(String fieldCode, String cropCode) {
         Optional<Field> fieldOpt = fieldRepo.findById(fieldCode);
         Optional<Crop> cropOpt = cropRepo.findById(cropCode);
         if(!fieldOpt.isPresent()) {
