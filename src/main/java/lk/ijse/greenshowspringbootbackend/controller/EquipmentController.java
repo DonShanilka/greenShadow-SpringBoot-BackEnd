@@ -3,6 +3,7 @@ package lk.ijse.greenshowspringbootbackend.controller;
 import lk.ijse.greenshowspringbootbackend.dto.impl.EquipmentDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Equipment;
 import lk.ijse.greenshowspringbootbackend.service.EquipmentService;
+import lk.ijse.greenshowspringbootbackend.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,5 +35,10 @@ public class EquipmentController {
     public ResponseEntity<Void> deleteEquipment(@PathVariable("equipmentId") String equipmentId) {
         equipmentService.deleteEquipment(equipmentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseUtil getAllEquipments() {
+        return new ResponseUtil("Success", "Retrieved All Equipments", equipmentService.getAllEquipment());
     }
 }
