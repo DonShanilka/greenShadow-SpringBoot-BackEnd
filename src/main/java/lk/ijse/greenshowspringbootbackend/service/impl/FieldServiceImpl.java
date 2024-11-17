@@ -8,6 +8,7 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
+import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.service.FieldService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -26,6 +28,8 @@ public class FieldServiceImpl implements FieldService {
 
     @Autowired
     private FieldRepo fieldRepo;
+    @Autowired
+    private CropRepo cropRepo;
     @Autowired
     private Mapping mapping;
     @Autowired
@@ -68,5 +72,16 @@ public class FieldServiceImpl implements FieldService {
             throw new FileNotFoundException("Field code " + fieldDTO.getFieldCode() + " does not exist");
         }
         fieldRepo.save(mapping.mapFieldDtoToEntity(fieldDTO));
+    }
+
+    @Override
+    public void saveFieldCrops(FieldDTO fieldDTO) {
+        Optional<Field> optionalField = fieldRepo.findById(fieldDTO.getFieldCode());
+        Optional<Crop> optionalCrop = cropRepo.findById()
+    }
+
+    @Override
+    public void deleteFieldCrops(String fieldCode, String cropCode) throws FileNotFoundException {
+
     }
 }
