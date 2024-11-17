@@ -10,6 +10,6 @@ public interface EquipmentService {
     void saveEquipment(EquipmentDTO equipmentDTO) throws FileNotFoundException;
     List<EquipmentDTO> getAllEquipment();
     EquipmentDTO getEquipmentById(String equipmentId);
-    void updateEquipment(EquipmentDTO equipmentDTO);
+    void updateEquipment(EquipmentDTO equipmentDTO) throws FileNotFoundException;
     void deleteEquipment(String equipmentId);
 }

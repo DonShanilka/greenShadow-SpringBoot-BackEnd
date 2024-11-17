@@ -59,8 +59,19 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public void updateEquipment(EquipmentDTO equipmentDTO) {
+    public void updateEquipment(EquipmentDTO equipmentDTO) throws FileNotFoundException {
+        if (!equipmentRepo.existsById(String.valueOf(equipmentDTO.getEquipmentId()))) {
+            throw new EquipmentNotFoundException(equipmentDTO.getEquipmentId() + " - Equipment Not Exist");
+        }
+        Optional<Staff> staff = staffRepo.findById(equipmentDTO.getStaffId());
+        Optional<Field> field = fieldRepo.findById(equipmentDTO.getFieldId());
 
+        if (!staff.isPresent()){
+            throw new StaffNotFoundException(equipmentDTO.getStaffId() + " - Staff Dose Not Exist");
+        } else if (!field.isPresent()) {
+            throw new FileNotFoundException(equipmentDTO.getFieldId() + " - Field Dose Not Exist");
+        }
+        equipmentRepo.save(mapping.mapEquipmentDtoToEntity(equipmentDTO));
     }
 
     @Override
