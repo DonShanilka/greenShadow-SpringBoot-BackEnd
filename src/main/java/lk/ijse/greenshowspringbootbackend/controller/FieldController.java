@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class FieldController {
             byte[] byteProPic2 = fieldImage2.getBytes();
             String base64proPic2 = AppUtil.imageBase64(byteProPic2);
 
-            fieldService.saveField(new FieldDTO(fieldCode,fieldName,location,extentSize,base64proPic1,base64proPic2));
+            fieldService.updateField(new FieldDTO(fieldCode,fieldName,location,extentSize,base64proPic1,base64proPic2));
 
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {
@@ -81,5 +82,11 @@ public class FieldController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @DeleteMapping("/{fieldCode}")
+    public ResponseEntity<Void> deleteField(@PathVariable("fieldCode") String fieldCode) throws FileNotFoundException {
+        fieldService.deleteFieldById(fieldCode);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
