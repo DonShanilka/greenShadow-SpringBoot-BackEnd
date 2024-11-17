@@ -1,10 +1,15 @@
 package lk.ijse.greenshowspringbootbackend.controller;
 
+import lk.ijse.greenshowspringbootbackend.dto.impl.EquipmentDTO;
+import lk.ijse.greenshowspringbootbackend.entity.impl.Equipment;
 import lk.ijse.greenshowspringbootbackend.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.FileNotFoundException;
 
 @CrossOrigin
 @RestController
@@ -13,5 +18,9 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
-
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> saveEquipment(@RequestBody EquipmentDTO equipmentDTO) throws FileNotFoundException {
+        equipmentService.saveEquipment(equipmentDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
