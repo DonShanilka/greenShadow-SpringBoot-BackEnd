@@ -6,6 +6,7 @@ import lk.ijse.greenshowspringbootbackend.entity.impl.Equipment;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
+import lk.ijse.greenshowspringbootbackend.exception.EquipmentNotFoundException;
 import lk.ijse.greenshowspringbootbackend.exception.StaffNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.EquipmentRepo;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
@@ -64,6 +65,9 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public void deleteEquipment(String equipmentId) {
-
+        if (!equipmentRepo.existsById(equipmentId)){
+            throw new EquipmentNotFoundException(equipmentId + " - Equipment Dose Not Exist");
+        }
+        equipmentRepo.deleteById(equipmentId);
     }
 }
