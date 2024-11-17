@@ -10,10 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class EquipmentDTO implements SuperDTO, EquipmentStatus {
-    private Long equipmentId;
+    private String equipmentId;
+    private int abCount;
     private String name;
     private String type;
     private String status;
+    private String fieldCode;
     private String staffId;
-    private String fieldId;
 }

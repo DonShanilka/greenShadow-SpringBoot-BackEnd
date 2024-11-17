@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 public class Equipment {
     @Id
     private String equipmentId;
+    private String availableCount;
     private String name;
     private String type;
     private String status;
-    private int availableCount;
 
     @ManyToOne
     @JoinColumn(name = "staff_id")

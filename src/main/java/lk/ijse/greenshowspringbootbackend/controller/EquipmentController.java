@@ -18,7 +18,7 @@ public class EquipmentController {
     @Autowired
     private EquipmentService equipmentService;
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveEquipment(@RequestBody EquipmentDTO equipmentDTO) throws FileNotFoundException {
         equipmentService.saveEquipment(equipmentDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);

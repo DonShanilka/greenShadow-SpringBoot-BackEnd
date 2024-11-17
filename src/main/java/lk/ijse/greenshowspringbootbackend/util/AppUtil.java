@@ -1,6 +1,7 @@
 package lk.ijse.greenshowspringbootbackend.util;
 
 import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
+import lk.ijse.greenshowspringbootbackend.repo.EquipmentRepo;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,8 @@ public class AppUtil {
 
     @Autowired
     private FieldRepo fieldRepository;
+    @Autowired
+    private EquipmentRepo equipmentRepository;
 
     public static String imageBase64(byte[] image){
         return Base64.getEncoder().encodeToString(image);
@@ -22,7 +25,7 @@ public class AppUtil {
 
     public String generateFieldId() {
         // Fetch the last crop ID
-        String lastId = fieldRepository.findLastCropCode();
+        String lastId = fieldRepository.findLastFieldCode();
 
         if (lastId != null && lastId.startsWith("F")) {
             // Extract the numeric part and increment
@@ -35,7 +38,7 @@ public class AppUtil {
     }
 
     public String generateEquipmentId() {
-        String lastId = fieldRepository.findLastCropCode();
+        String lastId = equipmentRepository.findLastEquipmentCode();
 
         if (lastId != null && lastId.startsWith("E")) {
             int lastNumber = Integer.parseInt(lastId.substring(1));
