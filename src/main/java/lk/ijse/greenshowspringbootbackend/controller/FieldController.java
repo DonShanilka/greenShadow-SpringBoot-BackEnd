@@ -7,6 +7,7 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.service.FieldService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
+import lk.ijse.greenshowspringbootbackend.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -88,5 +89,10 @@ public class FieldController {
     public ResponseEntity<Void> deleteField(@PathVariable("fieldCode") String fieldCode) throws FileNotFoundException {
         fieldService.deleteFieldById(fieldCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<FieldDTO> getAllFields() {
+       return fieldService.getAllField();
     }
 }
