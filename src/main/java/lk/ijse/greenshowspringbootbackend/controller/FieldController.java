@@ -103,12 +103,9 @@ public class FieldController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/fieldCrops")
-    public ResponseEntity<Void> deleteFieldCrop(
-            @RequestParam("fiedCode") String fiedCode,
-            @RequestParam ("cropCode") String cropCode
-    ) throws FileNotFoundException {
-        fieldService.deleteFieldCrops(fiedCode,cropCode);
+    @DeleteMapping(value = "/fieldCrops", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> deleteFieldCrop(@RequestBody FieldCropDTO fieldCropDTO) throws FileNotFoundException {
+        fieldService.deleteFieldCrops(fieldCropDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
