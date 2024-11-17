@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class EquipmentDTO implements SuperDTO, EquipmentStatus {
     private String equipmentId;
-    private int abCount;
+    private String availableCount;
     private String name;
     private String type;
     private String status;

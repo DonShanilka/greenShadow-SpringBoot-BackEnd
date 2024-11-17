@@ -23,4 +23,10 @@ public class EquipmentController {
         equipmentService.saveEquipment(equipmentDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateEquipment(@RequestBody EquipmentDTO equipmentDTO) throws FileNotFoundException {
+        equipmentService.updateEquipment(equipmentDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
