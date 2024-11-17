@@ -14,4 +14,6 @@ public class EquipmentDTO implements SuperDTO, EquipmentStatus {
     private String name;
     private String type;
     private String status;
+    private String staffId;
+    private String fieldId;
 }
