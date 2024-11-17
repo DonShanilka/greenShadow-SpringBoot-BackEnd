@@ -10,6 +10,7 @@ import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
 import lk.ijse.greenshowspringbootbackend.exception.CropNotFoundException;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
+import lk.ijse.greenshowspringbootbackend.exception.FieldNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.service.FieldService;
@@ -98,6 +99,17 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public void deleteFieldCrops(String fieldCode, String cropCode) throws FileNotFoundException {
-
+        Optional<Field> fieldOpt = fieldRepo.findById(fieldCode);
+        Optional<Crop> cropOpt = cropRepo.findById(cropCode);
+        if(!fieldOpt.isPresent()) {
+            throw new FieldNotFoundException(fieldCode + " : Field Does Not Exist");
+        } else if(!cropOpt.isPresent()) {
+            throw new CropNotFoundException(cropCode + " : Crop Does Not Exist");
+        }
+        Field field = fieldOpt.get();
+        Crop crop = cropOpt.get();
+        field.getCrops().remove(crop);
+        crop.getFields().remove(field);
+        fieldRepo.save(field);
     }
 }
