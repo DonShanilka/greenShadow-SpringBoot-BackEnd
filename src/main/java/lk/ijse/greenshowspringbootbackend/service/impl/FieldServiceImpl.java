@@ -46,7 +46,7 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public List<FieldDTO> getAllField() {
-        return List.of();
+        return mapping.mapFieldEntitiesToDtos(fieldRepo.findAll());
     }
 
     @Override
