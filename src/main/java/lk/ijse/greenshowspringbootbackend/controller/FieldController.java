@@ -47,7 +47,7 @@ public class FieldController {
 //            String fieldId = AppUtil.generateCropCode();
 
             var fieldDto = new FieldDTO();
-//            fieldDto.setFieldCode(fieldId);
+//          fieldDto.setFieldCode(fieldId);
             fieldDto.setFieldName(fieldName);
             fieldDto.setLocation(location);
             fieldDto.setExtentSize(extentSize);

@@ -8,6 +8,7 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
+import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.service.FieldService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
 import lk.ijse.greenshowspringbootbackend.util.Mapping;
@@ -22,16 +23,29 @@ import java.util.List;
 @Transactional
 public class FieldServiceImpl implements FieldService {
 
-    private static List<FieldDTO> f = new ArrayList<>();
-
     @Autowired
-    private FieldDAO fieldDAO;
+    private FieldRepo fieldRepo;
+
     @Autowired
     private Mapping mapping;
 
+    public String generateCropId() {
+        // Fetch the last crop ID
+        String lastId = fieldRepo.findLastCropCode();
+
+        if (lastId != null && lastId.startsWith("F")) {
+            // Extract the numeric part and increment
+            int lastNumber = Integer.parseInt(lastId.substring(1));
+            return String.format("F%03d", lastNumber + 1);
+        } else {
+            // Default ID for the first entry
+            return "F001";
+        }
+    }
+
     @Override
     public void saveField(FieldDTO fieldDTO) {
-        Field saveField = fieldDAO.save(mapping.mapFieldDtoToEntity(fieldDTO));
+        Field saveField = fieldRepo.save(mapping.mapFieldDtoToEntity(fieldDTO));
         if (saveField == null) {
             throw new DataPersistException("Field save failed");
         }

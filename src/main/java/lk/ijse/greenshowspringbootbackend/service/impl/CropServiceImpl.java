@@ -25,12 +25,9 @@ public class CropServiceImpl implements CropService {
     @Autowired
     private Mapping mapping;
 
-    @Autowired
-    private CropRepo cropRepository;
-
     public String generateCropId() {
         // Fetch the last crop ID
-        String lastId = cropRepository.findLastCropCode();
+        String lastId = cropRepo.findLastCropCode();
 
         if (lastId != null && lastId.startsWith("C")) {
             // Extract the numeric part and increment
