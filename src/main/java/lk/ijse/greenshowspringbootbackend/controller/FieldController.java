@@ -2,6 +2,7 @@ package lk.ijse.greenshowspringbootbackend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
+import lk.ijse.greenshowspringbootbackend.dto.impl.FieldCropDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
@@ -94,5 +95,11 @@ public class FieldController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<FieldDTO> getAllFields() {
        return fieldService.getAllField();
+    }
+
+    @PostMapping(value = "/fieldCrops", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> saveFieldCrips(@RequestBody FieldCropDTO fieldCropDTO) throws FileNotFoundException {
+        fieldService.saveFieldCrops(fieldCropDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
