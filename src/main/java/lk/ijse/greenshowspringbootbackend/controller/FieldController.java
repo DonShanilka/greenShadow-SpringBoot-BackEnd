@@ -1,14 +1,10 @@
 package lk.ijse.greenshowspringbootbackend.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.FieldCropDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
-import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.service.FieldService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
-import lk.ijse.greenshowspringbootbackend.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("api/v1/field")
 public class FieldController {
