@@ -35,15 +35,12 @@ public class AppUtil {
     }
 
     public String generateEquipmentId() {
-        // Fetch the last crop ID
         String lastId = fieldRepository.findLastCropCode();
 
         if (lastId != null && lastId.startsWith("E")) {
-            // Extract the numeric part and increment
             int lastNumber = Integer.parseInt(lastId.substring(1));
             return String.format("E%03d", lastNumber + 1);
         } else {
-            // Default ID for the first entry
             return "E001";
         }
     }
