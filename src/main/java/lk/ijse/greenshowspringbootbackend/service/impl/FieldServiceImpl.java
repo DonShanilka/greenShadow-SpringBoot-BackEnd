@@ -33,9 +33,11 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public void saveField(FieldDTO fieldDTO) {
         String newCropId = appUtil.generateFieldId();
+
         if (fieldRepo.existsById(newCropId)) {
             throw new DataPersistException("Crop ID " + newCropId + " already exists");
         }
+
         Field field = mapping.mapFieldDtoToEntity(fieldDTO);
         field.setFieldCode(newCropId);
         fieldRepo.save(field);
