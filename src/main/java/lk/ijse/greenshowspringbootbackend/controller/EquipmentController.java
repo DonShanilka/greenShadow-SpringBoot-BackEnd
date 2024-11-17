@@ -29,4 +29,10 @@ public class EquipmentController {
         equipmentService.updateEquipment(equipmentDTO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @DeleteMapping({"/{equipmentId}"})
+    public ResponseEntity<Void> deleteEquipment(@PathVariable("equipmentId") String equipmentId) {
+        equipmentService.deleteEquipment(equipmentId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
