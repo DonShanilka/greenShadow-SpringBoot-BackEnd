@@ -55,8 +55,11 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public void deleteFieldById(String fieldCode) {
-
+    public void deleteFieldById(String fieldCode) throws FileNotFoundException {
+        if (!fieldRepo.existsById(fieldCode)) {
+            throw new FileNotFoundException("Crop ID " + fieldCode + " does not exist");
+        }
+        fieldRepo.deleteById(fieldCode);
     }
 
     @Override
@@ -64,5 +67,6 @@ public class FieldServiceImpl implements FieldService {
         if (!fieldRepo.existsById(fieldDTO.getFieldCode())) {
             throw new FileNotFoundException("Field code " + fieldDTO.getFieldCode() + " does not exist");
         }
+        fieldRepo.save(mapping.mapFieldDtoToEntity(fieldDTO));
     }
 }

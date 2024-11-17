@@ -11,6 +11,6 @@ public interface FieldService {
     void saveField(FieldDTO fieldDTO);
     List<FieldDTO> getAllField();
     CropStatus getFieldById(String fieldCode);
-    void deleteFieldById(String fieldCode);
+    void deleteFieldById(String fieldCode) throws FileNotFoundException;
     void updateField(FieldDTO fieldDTO) throws FileNotFoundException;
 }
