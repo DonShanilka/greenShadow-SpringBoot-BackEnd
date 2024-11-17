@@ -33,27 +33,15 @@ public class FieldController {
             @RequestPart("fieldImage2") MultipartFile fieldImage2
     ) {
 
-        String base64proPic1 = "";
-        String base64proPic2 = "";
-
         try {
 
             byte[] byteProPic1 = fieldImage1.getBytes();
-            base64proPic1 = AppUtil.imageBase64(byteProPic1);
+            String base64proPic1 = AppUtil.imageBase64(byteProPic1);
 
             byte[] byteProPic2 = fieldImage2.getBytes();
-            base64proPic2 = AppUtil.imageBase64(byteProPic2);
+            String base64proPic2 = AppUtil.imageBase64(byteProPic2);
 
-//            String fieldId = AppUtil.generateCropCode();
-
-            var fieldDto = new FieldDTO();
-//          fieldDto.setFieldCode(fieldId);
-            fieldDto.setFieldName(fieldName);
-            fieldDto.setLocation(location);
-            fieldDto.setExtentSize(extentSize);
-            fieldDto.setFieldImage1(base64proPic1);
-            fieldDto.setFieldImage2(base64proPic2);
-            fieldService.saveField(fieldDto);
+            fieldService.saveField(new FieldDTO(fieldName,location,extentSize,base64proPic1,base64proPic2));
 
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {

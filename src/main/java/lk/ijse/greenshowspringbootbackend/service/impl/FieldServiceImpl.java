@@ -16,6 +16,7 @@ import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,9 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public void updateField(String fieldCode, FieldDTO fieldDTO) {
-
+    public void updateField(FieldDTO fieldDTO) throws FileNotFoundException {
+        if (!fieldRepo.existsById(fieldDTO.getFieldCode())) {
+            throw new FileNotFoundException("Field code " + fieldDTO.getFieldCode() + " does not exist");
+        }
     }
 }
