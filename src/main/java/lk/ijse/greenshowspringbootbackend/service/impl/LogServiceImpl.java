@@ -16,6 +16,7 @@ import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.repo.LogRepo;
 import lk.ijse.greenshowspringbootbackend.repo.StaffRepo;
 import lk.ijse.greenshowspringbootbackend.service.LogService;
+import lk.ijse.greenshowspringbootbackend.util.AppUtil;
 import lk.ijse.greenshowspringbootbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,6 @@ import java.util.List;
 @Service
 @Transactional
 public class LogServiceImpl implements LogService {
-
     @Autowired
     private LogRepo logRepo;
     @Autowired
@@ -37,12 +37,15 @@ public class LogServiceImpl implements LogService {
     private StaffRepo staffRepo;
     @Autowired
     private Mapping mapping;
-
+    @Autowired
+    private AppUtil appUtil;
 
     @Override
     public void saveLog(LogDTO logDTO) {
-        if (logRepo.existsById(logDTO.getLogCode())) {
-            throw new DataPersistException(logDTO.getLogCode() + " - Log already exists");
+        String logCode = appUtil.generateLogId();
+
+        if (logRepo.existsById(logCode)) {
+            throw new DataPersistException(logCode + " - LogCode already exists");
         }
         List<String> logFields = new ArrayList<>();
         for (FieldDTO fieldDTO : logDTO.getRelevantFields()){
