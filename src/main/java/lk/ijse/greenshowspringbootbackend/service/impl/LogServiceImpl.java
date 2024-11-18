@@ -10,6 +10,7 @@ import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Log;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
+import lk.ijse.greenshowspringbootbackend.exception.LogNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.repo.LogRepo;
@@ -75,6 +76,8 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public void deleteLog(String logCode) {
-
+        if (!logRepo.existsById(logCode)) {
+            throw new LogNotFoundException(logCode + " - Log does not exist");
+        }
     }
 }
