@@ -3,6 +3,7 @@ package lk.ijse.greenshowspringbootbackend.util;
 import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
 import lk.ijse.greenshowspringbootbackend.repo.EquipmentRepo;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
+import lk.ijse.greenshowspringbootbackend.repo.LogRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,12 +13,14 @@ import java.util.UUID;
 @RestController
 public class AppUtil {
 
+    @Autowired
     private CropRepo cropRepository;
-
     @Autowired
     private FieldRepo fieldRepository;
     @Autowired
     private EquipmentRepo equipmentRepository;
+    @Autowired
+    private LogRepo logRepository;
 
     public static String imageBase64(byte[] image){
         return Base64.getEncoder().encodeToString(image);
@@ -45,6 +48,17 @@ public class AppUtil {
             return String.format("E%03d", lastNumber + 1);
         } else {
             return "E001";
+        }
+    }
+
+    public String generateLogId() {
+        String lastId = logRepository.findLastLogCode();
+
+        if (lastId != null && lastId.startsWith("L")) {
+            int lastNumber = Integer.parseInt(lastId.substring(1));
+            return String.format("L%03d", lastNumber + 1);
+        } else {
+            return "L001";
         }
     }
 }
