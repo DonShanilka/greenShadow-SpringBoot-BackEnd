@@ -18,4 +18,13 @@ public class LogDTO {
     private List<FieldDTO> relevantFields;
     private List<CropDTO> relevantCrops;
     private List<StaffDTO> relevantStaff;
+
+    public LogDTO(Date date, String details, String imageBase64, List<FieldDTO> fieldDTOS, List<CropDTO> cropDTOS, List<StaffDTO> staffDTOS) {
+        this.logDate = date;
+        this.observationDetails = details;
+        this.image = imageBase64;
+        this.relevantFields = fieldDTOS;
+        this.relevantCrops = cropDTOS;
+        this.relevantStaff = staffDTOS;
+    }
 }
