@@ -7,6 +7,7 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Log;
 import lk.ijse.greenshowspringbootbackend.service.LogService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
+import lk.ijse.greenshowspringbootbackend.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -75,5 +76,10 @@ public class LogController {
     public ResponseEntity<Void> deleteLog(@PathVariable("logCode") String logCode) {
         logService.deleteLog(logCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseUtil getAllLogs() {
+        return new ResponseUtil("Done", "Get All Logs", logService.getLogs());
     }
 }
