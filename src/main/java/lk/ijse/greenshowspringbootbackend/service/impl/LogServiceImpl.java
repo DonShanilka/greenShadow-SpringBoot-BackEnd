@@ -70,7 +70,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public List<LogDTO> getLogs() {
-        return List.of();
+        return mapping.mapLogEntitiesToDtos(logRepo.findAll());
     }
 
     @Override
