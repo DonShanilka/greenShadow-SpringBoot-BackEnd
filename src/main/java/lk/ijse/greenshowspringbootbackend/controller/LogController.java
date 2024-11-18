@@ -70,4 +70,10 @@ public class LogController {
             throw new RuntimeException(e);
         }
     }
+
+    @DeleteMapping("/{logCode}")
+    public ResponseEntity<Void> deleteLog(@PathVariable("logCode") String logCode) {
+        logService.deleteLog(logCode);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
