@@ -13,6 +13,7 @@ import lk.ijse.greenshowspringbootbackend.repo.EquipmentRepo;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.repo.StaffRepo;
 import lk.ijse.greenshowspringbootbackend.service.EquipmentService;
+import lk.ijse.greenshowspringbootbackend.util.AppUtil;
 import lk.ijse.greenshowspringbootbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,12 +33,17 @@ public class EquipmentServiceImpl implements EquipmentService {
     private FieldRepo fieldRepo;
     @Autowired
     private Mapping mapping;
+    @Autowired
+    private AppUtil appUtil;
 
     @Override
     public void saveEquipment(EquipmentDTO equipmentDTO) throws FileNotFoundException {
-        if (equipmentRepo.existsById(equipmentDTO.getEquipmentId())) {
-            throw new DataPersistException(equipmentDTO.getEquipmentId() + " : Equipment Already Exist");
+        String newEquipmentCode = appUtil.generateEquipmentId();
+
+        if (equipmentRepo.existsById(newEquipmentCode)) {
+            throw new DataPersistException("Crop ID " + newEquipmentCode + " already exists");
         }
+
         Optional<Staff> staff = staffRepo.findById(equipmentDTO.getStaffId());
         Optional<Field> field = fieldRepo.findById(equipmentDTO.getFieldCode());
         if (!staff.isPresent()) {
@@ -45,7 +51,9 @@ public class EquipmentServiceImpl implements EquipmentService {
         } else if (!field.isPresent()) {
             throw new FieldNotFoundException(equipmentDTO.getFieldCode() + " : Field Does Not Exist");
         }
-        equipmentRepo.save(mapping.mapEquipmentDtoToEntity(equipmentDTO));
+        Equipment equipment = mapping.mapEquipmentDtoToEntity(equipmentDTO);
+        equipment.setEquipmentId(newEquipmentCode);
+        equipmentRepo.save(equipment);
     }
 
     @Override
