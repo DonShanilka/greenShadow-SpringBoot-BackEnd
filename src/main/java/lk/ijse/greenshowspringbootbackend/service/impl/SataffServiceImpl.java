@@ -3,6 +3,8 @@ package lk.ijse.greenshowspringbootbackend.service.impl;
 import jakarta.transaction.Transactional;
 import lk.ijse.greenshowspringbootbackend.dto.impl.FieldStaffDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
+import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
+import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.repo.StaffRepo;
@@ -28,10 +30,16 @@ public class SataffServiceImpl implements SataffService {
 
     @Override
     public void saveStaff(StaffDTO staffDTO) {
-        if (staffRepo.existsById(appUtil.generateStaffId())) {
-            throw new DataPersistException((appUtil.generateStaffId()) + " - Staff already exists ");
+        String newStaffCrop = appUtil.generateStaffId();
+        // Check if the new ID already exists in the database
+        if (staffRepo.existsById(newStaffCrop)) {
+            throw new DataPersistException("Crop ID " + newStaffCrop + " already exists");
         }
-        staffRepo.save(mapping.mapStaffDtoToEntity(staffDTO));
+        // Map the CropDTO to a Crop entity and set the generated ID
+        Staff staffEntity = mapping.mapStaffDtoToEntity(staffDTO);
+        staffEntity.setId(newStaffCrop);
+        // Save the crop entity to the database
+        staffRepo.save(staffEntity);
     }
 
     @Override
