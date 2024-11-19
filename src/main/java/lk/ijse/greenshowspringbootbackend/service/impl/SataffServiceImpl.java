@@ -54,7 +54,10 @@ public class SataffServiceImpl implements SataffService {
 
     @Override
     public void deleteStaff(String staffCode) {
-
+        if (!staffRepo.existsById(staffCode)) {
+            throw new StaffNotFoundException("Staff ID " + staffCode + " does not exist");
+        }
+        staffRepo.deleteById(staffCode);
     }
 
     @Override
