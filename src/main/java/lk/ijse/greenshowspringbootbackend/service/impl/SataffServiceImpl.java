@@ -6,6 +6,7 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
+import lk.ijse.greenshowspringbootbackend.exception.StaffNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.repo.StaffRepo;
 import lk.ijse.greenshowspringbootbackend.service.SataffService;
@@ -14,6 +15,7 @@ import lk.ijse.greenshowspringbootbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @Service
@@ -44,7 +46,10 @@ public class SataffServiceImpl implements SataffService {
 
     @Override
     public void updateStaff(StaffDTO staffDTO) {
-
+        if (!staffRepo.existsById(staffDTO.getId())) {
+            throw new StaffNotFoundException("Staff code " + staffDTO.getId() + " does not exist");
+        }
+        staffRepo.save(mapping.mapStaffDtoToEntity(staffDTO));
     }
 
     @Override
