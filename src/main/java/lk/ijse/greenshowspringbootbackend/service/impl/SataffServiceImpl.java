@@ -87,6 +87,18 @@ public class SataffServiceImpl implements SataffService {
 
     @Override
     public void deleteFieldStaff(String fieldCode, String staffCode) {
+        Optional<Field> fieldOptional = fieldRepo.findById(fieldCode);
+        Optional<Staff> staffOptional = staffRepo.findById(staffCode);
 
+        if(!fieldOptional.isPresent() || !staffOptional.isPresent()) {
+            throw new DataPersistException(fieldCode + " Or " + staffCode + " does not exist");
+        }
+
+        Field field = fieldOptional.get();
+        Staff staff = staffOptional.get();
+
+        field.getStaffs().remove(staff);
+        staff.getFields().remove(field);
+        fieldRepo.save(field);
     }
 }
