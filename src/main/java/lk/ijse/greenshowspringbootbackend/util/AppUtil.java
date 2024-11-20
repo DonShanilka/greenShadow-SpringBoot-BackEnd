@@ -20,6 +20,8 @@ public class AppUtil {
     private LogRepo logRepository;
     @Autowired
     private StaffRepo staffRepository;
+    @Autowired
+    private VehicleRepo vehicleRepository;
 
     public static String imageBase64(byte[] image){
         return Base64.getEncoder().encodeToString(image);
@@ -69,6 +71,17 @@ public class AppUtil {
             return String.format("S%03d", lastNumber + 1);
         } else {
             return "S001";
+        }
+    }
+
+    public String generateVehicleId() {
+        String lastId = vehicleRepository.findLastVehicleCode();
+
+        if (lastId != null && lastId.startsWith("V")) {
+            int lastNumber = Integer.parseInt(lastId.substring(1));
+            return String.format("V%03d", lastNumber + 1);
+        } else {
+            return "V001";
         }
     }
 }
