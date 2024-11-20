@@ -9,7 +9,7 @@ import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.exception.StaffNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.repo.StaffRepo;
-import lk.ijse.greenshowspringbootbackend.service.SataffService;
+import lk.ijse.greenshowspringbootbackend.service.StaffService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
 import lk.ijse.greenshowspringbootbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class SataffServiceImpl implements SataffService {
+public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffRepo staffRepo;
     @Autowired

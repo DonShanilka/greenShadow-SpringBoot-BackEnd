@@ -5,7 +5,7 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
 
 import java.util.List;
 
-public interface SataffService {
+public interface StaffService {
     void saveStaff(StaffDTO staffDTO);
     void updateStaff(StaffDTO staffDTO);
     void deleteStaff(String staffCode);
