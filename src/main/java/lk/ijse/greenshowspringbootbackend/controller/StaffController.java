@@ -1,7 +1,6 @@
 package lk.ijse.greenshowspringbootbackend.controller;
 
 import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
-import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
 import lk.ijse.greenshowspringbootbackend.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,5 +19,11 @@ public class StaffController {
     public ResponseEntity<Void> saveStaff(@RequestBody StaffDTO staffDTO) {
         staffService.saveStaff(staffDTO);
         return new  ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateStaff(@RequestBody StaffDTO staffDTO) {
+        staffService.updateStaff(staffDTO);
+        return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
