@@ -49,9 +49,9 @@ public class StaffController {
     @DeleteMapping("/fieldstaff")
     public ResponseEntity<Void> deleteFieldStaff(
             @RequestParam("fieldCode") String fieldCode,
-            @RequestParam("staffId") String staffId
+            @RequestParam("staffCode") String staffCode
     ) {
-        staffService.deleteFieldStaff(fieldCode, staffId);
+        staffService.deleteFieldStaff(fieldCode, staffCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
