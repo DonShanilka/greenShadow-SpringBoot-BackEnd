@@ -2,6 +2,7 @@ package lk.ijse.greenshowspringbootbackend.controller;
 
 import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
 import lk.ijse.greenshowspringbootbackend.service.StaffService;
+import lk.ijse.greenshowspringbootbackend.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,5 +32,10 @@ public class StaffController {
     public ResponseEntity<Void> deleteStaff(@PathVariable String staffId) {
         staffService.deleteStaff(staffId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseUtil getAllStaff() {
+        return new ResponseUtil("Don"," Get All Staff ",staffService.getAllStaffs());
     }
 }
