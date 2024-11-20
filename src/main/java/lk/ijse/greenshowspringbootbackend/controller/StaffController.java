@@ -46,4 +46,13 @@ public class StaffController {
         return new  ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/fieldstaff")
+    public ResponseEntity<Void> deleteFieldStaff(
+            @RequestParam("fieldCode") String fieldCode,
+            @RequestParam("staffId") String staffId
+    ) {
+        staffService.deleteFieldStaff(fieldCode, staffId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
