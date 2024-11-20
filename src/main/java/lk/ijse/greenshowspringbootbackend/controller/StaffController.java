@@ -26,4 +26,10 @@ public class StaffController {
         staffService.updateStaff(staffDTO);
         return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @DeleteMapping(path = "/{staffId}")
+    public ResponseEntity<Void> deleteStaff(@PathVariable String staffId) {
+        staffService.deleteStaff(staffId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
