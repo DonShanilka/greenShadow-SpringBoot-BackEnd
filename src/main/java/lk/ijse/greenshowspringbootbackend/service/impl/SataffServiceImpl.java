@@ -3,7 +3,7 @@ package lk.ijse.greenshowspringbootbackend.service.impl;
 import jakarta.transaction.Transactional;
 import lk.ijse.greenshowspringbootbackend.dto.impl.FieldStaffDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
-import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
+import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.exception.StaffNotFoundException;
@@ -15,8 +15,8 @@ import lk.ijse.greenshowspringbootbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -62,12 +62,27 @@ public class SataffServiceImpl implements SataffService {
 
     @Override
     public List<StaffDTO> getAllStaffs() {
-        return List.of();
+        return mapping.mapStaffEntitiesToDtos(staffRepo.findAll());
     }
 
     @Override
     public void saveFieldStaff(FieldStaffDTO fieldStaffDTO) {
+        Optional<Field> fieldOptional = fieldRepo.findById(fieldStaffDTO.getFieldCode());
+        Optional<Staff> staffOptional = staffRepo.findById(fieldStaffDTO.getStaffCode());
 
+        if(!fieldOptional.isPresent() || !staffOptional.isPresent()) {
+            throw new DataPersistException(fieldStaffDTO.getFieldCode() + " Or " + fieldStaffDTO.getStaffCode() + " does not exist");
+        }
+
+        Field field = fieldOptional.get();
+        Staff staff = staffOptional.get();
+        if (field.getStaffs().contains(staff)) {
+            throw new DataPersistException("Field " + fieldStaffDTO.getFieldCode() + " already exists");
+        }
+
+        field.getStaffs().add(staff);
+        staff.getFields().add(field);
+        fieldRepo.save(field);
     }
 
     @Override

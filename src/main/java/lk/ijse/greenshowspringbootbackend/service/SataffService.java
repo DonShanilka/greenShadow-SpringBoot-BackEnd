@@ -12,5 +12,4 @@ public interface SataffService {
     List<StaffDTO> getAllStaffs();
     void saveFieldStaff(FieldStaffDTO fieldStaffDTO);
     void deleteFieldStaff(String fieldCode,String staffCode);
-//    List<FieldStaffDTO> getAllFieldStaffs();
 }
