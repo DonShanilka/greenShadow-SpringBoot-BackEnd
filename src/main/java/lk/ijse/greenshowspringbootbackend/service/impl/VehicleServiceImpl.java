@@ -58,7 +58,10 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public void delete(String vehicleCode) {
-
+        if (!vehicleRepo.existsById(vehicleCode)) {
+            throw new VehicleNotFoundException(vehicleCode + " does not exist");
+        }
+        vehicleRepo.deleteById(vehicleCode);
     }
 
     @Override

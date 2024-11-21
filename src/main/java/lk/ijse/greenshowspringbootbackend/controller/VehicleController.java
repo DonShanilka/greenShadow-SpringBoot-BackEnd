@@ -26,7 +26,7 @@ public class VehicleController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> updateVehicle(@RequestBody VehicleDTO vehicleDTO) {
         vehicleService.update(vehicleDTO);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{vehicleCode}")
