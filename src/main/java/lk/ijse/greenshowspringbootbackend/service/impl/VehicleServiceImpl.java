@@ -6,6 +6,7 @@ import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Vehicle;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.exception.StaffNotFoundException;
+import lk.ijse.greenshowspringbootbackend.exception.VehicleNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.StaffRepo;
 import lk.ijse.greenshowspringbootbackend.repo.VehicleRepo;
 import lk.ijse.greenshowspringbootbackend.service.VehicleService;
@@ -47,7 +48,12 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public void update(VehicleDTO vehicleDTO) {
-
+        if (!vehicleRepo.existsById(vehicleDTO.getVehicleCode())) {
+            throw new VehicleNotFoundException(vehicleDTO.getVehicleCode() + " does not exist");
+        } else if (!staffRepo.existsById(vehicleDTO.getStaffId())) {
+            throw new StaffNotFoundException(vehicleDTO.getStaffId() + " does not exist");
+        }
+        vehicleRepo.save(mapping.mapVehicleDtoToEntity(vehicleDTO));
     }
 
     @Override

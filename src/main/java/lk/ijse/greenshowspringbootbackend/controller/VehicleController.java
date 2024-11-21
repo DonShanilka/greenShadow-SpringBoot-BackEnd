@@ -37,7 +37,7 @@ public class VehicleController {
 
     @GetMapping
     public ResponseUtil getAllVehicles() {
-        return new ResponseUtil("Don"," Get All Vehicle",vehicleService.getAllVehicles());
+        return new ResponseUtil("Don"," Get All Vehicle ",vehicleService.getAllVehicles());
     }
 
 }
