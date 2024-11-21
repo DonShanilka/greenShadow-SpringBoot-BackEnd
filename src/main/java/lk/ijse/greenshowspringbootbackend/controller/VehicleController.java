@@ -3,6 +3,7 @@ package lk.ijse.greenshowspringbootbackend.controller;
 import lk.ijse.greenshowspringbootbackend.dto.impl.VehicleDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Vehicle;
 import lk.ijse.greenshowspringbootbackend.service.VehicleService;
+import lk.ijse.greenshowspringbootbackend.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +33,11 @@ public class VehicleController {
     public ResponseEntity<Void> deleteVehicle(@PathVariable("vehicleCode") String vehicleCode) {
         vehicleService.delete(vehicleCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseUtil getAllVehicles() {
+        return new ResponseUtil("Don"," Get All Vehicle",vehicleService.getAllVehicles());
     }
 
 }
