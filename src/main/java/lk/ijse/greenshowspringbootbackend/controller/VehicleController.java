@@ -21,4 +21,13 @@ public class VehicleController {
         vehicleService.save(vehicleDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateVehicle(@RequestBody VehicleDTO vehicleDTO) {
+        vehicleService.update(vehicleDTO);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/{vehicleCode}")
+
 }
