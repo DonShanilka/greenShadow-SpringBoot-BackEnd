@@ -29,5 +29,9 @@ public class VehicleController {
     }
 
     @DeleteMapping("/{vehicleCode}")
+    public ResponseEntity<Void> deleteVehicle(@PathVariable("vehicleCode") String vehicleCode) {
+        vehicleService.delete(vehicleCode);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }
