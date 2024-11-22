@@ -61,4 +61,12 @@ public Field mapFieldDtoToEntity(FieldDTO fieldDTO) {
     public List<VehicleDTO> mapVehicleEntitiesToDtos(List<Vehicle> vehicleEntities) {
         return modelMapper.map(vehicleEntities, new TypeToken<List<VehicleDTO>>() {}.getType());
     }
+
+    public User mapUserDtoToEntity(UserDTO userDTO) {
+        return modelMapper.map(userDTO, User.class);
+    }
+
+    public List<UserDTO> mapUserEntitiesToDtos(List<User> userEntities) {
+        return modelMapper.map(userEntities, new TypeToken<List<UserDTO>>() {}.getType());
+    }
 }

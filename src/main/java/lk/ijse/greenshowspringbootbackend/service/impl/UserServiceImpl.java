@@ -2,6 +2,7 @@ package lk.ijse.greenshowspringbootbackend.service.impl;
 
 import jakarta.transaction.Transactional;
 import lk.ijse.greenshowspringbootbackend.dto.impl.UserDTO;
+import lk.ijse.greenshowspringbootbackend.entity.impl.User;
 import lk.ijse.greenshowspringbootbackend.repo.UserRepo;
 import lk.ijse.greenshowspringbootbackend.service.UserService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(UserDTO userDTO) {
-
+        User saveUser = userRepo.save(mapping.)
     }
 
     @Override
