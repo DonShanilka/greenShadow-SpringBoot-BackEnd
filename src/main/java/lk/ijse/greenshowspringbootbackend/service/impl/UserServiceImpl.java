@@ -5,6 +5,7 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.UserDTO;
 import lk.ijse.greenshowspringbootbackend.entity.Role;
 import lk.ijse.greenshowspringbootbackend.entity.impl.User;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
+import lk.ijse.greenshowspringbootbackend.exception.UserNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.UserRepo;
 import lk.ijse.greenshowspringbootbackend.service.UserService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
@@ -47,12 +48,15 @@ public class UserServiceImpl implements UserService {
     public void delete(String userId) {
         Optional<User> existUser = userRepo.findById(userId);
         if (existUser.isPresent()) {
-            throw new UserPrincipalNotFoundException()
+            throw new UserNotFoundException(userId + " User Not Found");
+        } else {
+            userRepo.deleteById(userId);
         }
     }
 
     @Override
     public List<UserDTO> getAllVehicles() {
-        return List.of();
+        List<User> allUsers = userRepo.findAll();
+        return mapping.mapUserEntitiesToDtos(allUsers);
     }
 }
