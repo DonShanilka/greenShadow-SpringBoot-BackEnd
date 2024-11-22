@@ -5,7 +5,9 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.UserDTO;
 import lk.ijse.greenshowspringbootbackend.entity.Role;
 import lk.ijse.greenshowspringbootbackend.entity.impl.User;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
+import lk.ijse.greenshowspringbootbackend.exception.StaffNotFoundException;
 import lk.ijse.greenshowspringbootbackend.exception.UserNotFoundException;
+import lk.ijse.greenshowspringbootbackend.exception.VehicleNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.UserRepo;
 import lk.ijse.greenshowspringbootbackend.service.UserService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
@@ -35,12 +37,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(String userId, UserDTO userDTO) {
-        Optional<User> user = userRepo.findById(userId);
-        if (user.isPresent()) {
-            user.get().setPassword(userDTO.getPassword());
-            user.get().setRole(Role.valueOf(userDTO.getRole()));
+    public void update(UserDTO userDTO) {
+        if (!userRepo.existsById(userDTO.getEmail())) {
+            throw new VehicleNotFoundException(userDTO.getEmail() + " does not exist");
         }
+        userRepo.save(mapping.mapUserDtoToEntity(userDTO));
     }
 
     @Override

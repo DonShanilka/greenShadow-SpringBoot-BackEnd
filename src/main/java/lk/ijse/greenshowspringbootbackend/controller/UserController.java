@@ -1,6 +1,7 @@
 package lk.ijse.greenshowspringbootbackend.controller;
 
 import lk.ijse.greenshowspringbootbackend.dto.impl.UserDTO;
+import lk.ijse.greenshowspringbootbackend.dto.impl.VehicleDTO;
 import lk.ijse.greenshowspringbootbackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,5 +20,11 @@ public class UserController {
     public ResponseEntity<Void> saveUser(@RequestBody UserDTO userDTO) {
         userService.save(userDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateUser(@RequestBody UserDTO userDTO) {
+        userService.update(userDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
