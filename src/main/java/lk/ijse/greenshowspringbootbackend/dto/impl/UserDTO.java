@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class UserDTO implements SuperDTO, UserStatus {
     private String email;
+    private String password;
     private String role;
 }
