@@ -27,4 +27,10 @@ public class UserController {
         userService.update(userDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("/{userEmail}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("userEmail") String userEmail) {
+        userService.delete(userEmail);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
