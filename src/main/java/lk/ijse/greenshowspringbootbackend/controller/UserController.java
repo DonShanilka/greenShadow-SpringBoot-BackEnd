@@ -3,6 +3,7 @@ package lk.ijse.greenshowspringbootbackend.controller;
 import lk.ijse.greenshowspringbootbackend.dto.impl.UserDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.VehicleDTO;
 import lk.ijse.greenshowspringbootbackend.service.UserService;
+import lk.ijse.greenshowspringbootbackend.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,5 +33,10 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable("userEmail") String userEmail) {
         userService.delete(userEmail);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping
+    public ResponseUtil getAllUsers() {
+        return new ResponseUtil("Don"," Get All Users ",userService.getAllUsers());
     }
 }

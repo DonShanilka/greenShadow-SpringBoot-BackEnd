@@ -46,16 +46,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(String userId) {
-        Optional<User> existUser = userRepo.findById(userId);
-        if (existUser.isPresent()) {
-            throw new UserNotFoundException(userId + " User Not Found");
-        } else {
-            userRepo.deleteById(userId);
+        if (!userRepo.existsById(userId)) {
+            throw new VehicleNotFoundException(userId + " does not exist");
         }
+        userRepo.deleteById(userId);
     }
 
     @Override
-    public List<UserDTO> getAllVehicles() {
+    public List<UserDTO> getAllUsers() {
         List<User> allUsers = userRepo.findAll();
         return mapping.mapUserEntitiesToDtos(allUsers);
     }

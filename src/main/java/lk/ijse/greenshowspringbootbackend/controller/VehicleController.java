@@ -30,8 +30,8 @@ public class VehicleController {
     }
 
     @DeleteMapping("/{vehicleCode}")
-    public ResponseEntity<Void> deleteVehicle(@PathVariable("vehicleCode") String vehicleCode) {
-        vehicleService.delete(vehicleCode);
+    public ResponseEntity<Void> deleteVehicle(@PathVariable("vehicleCode") String userCode) {
+        vehicleService.delete(userCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
