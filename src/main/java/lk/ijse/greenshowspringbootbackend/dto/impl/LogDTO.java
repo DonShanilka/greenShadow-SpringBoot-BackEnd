@@ -27,4 +27,10 @@ public class LogDTO {
         this.relevantCrops = cropDTOS;
         this.relevantStaff = staffDTOS;
     }
+
+    public LogDTO(Date date, String details, String imageBase64) {
+        this.logDate = date;
+        this.observationDetails = details;
+        this.image = imageBase64;
+    }
 }

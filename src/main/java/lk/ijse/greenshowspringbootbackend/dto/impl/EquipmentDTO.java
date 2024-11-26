@@ -15,15 +15,15 @@ public class EquipmentDTO implements SuperDTO, EquipmentStatus {
     private String name;
     private String type;
     private String status;
-    private String fieldCode;
-    private String staffId;
+    private String fieldIdOnEquipment;
+    private String staffIdOnEquipment;
 
-    public EquipmentDTO(String name, String abCount, String type,String status ,String fieldCode, String staffId) {
+    public EquipmentDTO(String name, String availableCount, String type,String status ,String fieldIdOnEquipment, String staffIdOnEquipment) {
         this.name = name;
-        this.availableCount = abCount;
+        this.availableCount = availableCount;
         this.type = type;
         this.status = status;
-        this.fieldCode = fieldCode;
-        this.staffId = staffId;
+        this.fieldIdOnEquipment = fieldIdOnEquipment;
+        this.staffIdOnEquipment = staffIdOnEquipment;
     }
 }

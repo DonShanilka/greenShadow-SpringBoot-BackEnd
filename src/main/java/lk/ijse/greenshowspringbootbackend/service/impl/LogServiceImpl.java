@@ -47,27 +47,8 @@ public class LogServiceImpl implements LogService {
         if (logRepo.existsById(logCode)) {
             throw new DataPersistException(logCode + " - LogCode already exists");
         }
-        List<String> logFields = new ArrayList<>();
-        for (FieldDTO fieldDTO : logDTO.getRelevantFields()){
-            logFields.add(fieldDTO.getFieldCode());
-        }
-        List<String> logCrops = new ArrayList<>();
-        for (CropDTO cropDTO : logDTO.getRelevantCrops()){
-            logCrops.add(cropDTO.getCropCode());
-        }
-        List<String> logStaffs = new ArrayList<>();
-        for (StaffDTO staffDTO : logDTO.getRelevantStaff()){
-            logStaffs.add(staffDTO.getId());
-        }
-
-        List<Field> fields = fieldRepo.findAllById(logFields);
-        List<Crop> crops = cropRepo.findAllById(logCrops);
-        List<Staff> staffs = staffRepo.findAllById(logStaffs);
         Log log = mapping.mapLogDtoToEntity(logDTO);
-
-        log.setFields(fields);
-        log.setCrops(crops);
-        log.setStaffs(staffs);
+        log.setLogCode(logCode);
         logRepo.save(log);
 
     }

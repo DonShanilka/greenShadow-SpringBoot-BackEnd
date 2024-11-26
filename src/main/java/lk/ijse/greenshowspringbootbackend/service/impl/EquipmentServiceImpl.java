@@ -44,12 +44,12 @@ public class EquipmentServiceImpl implements EquipmentService {
             throw new DataPersistException("Crop ID " + newEquipmentCode + " already exists");
         }
 
-        Optional<Staff> staff = staffRepo.findById(equipmentDTO.getStaffId());
-        Optional<Field> field = fieldRepo.findById(equipmentDTO.getFieldCode());
+        Optional<Staff> staff = staffRepo.findById(equipmentDTO.getStaffIdOnEquipment());
+        Optional<Field> field = fieldRepo.findById(equipmentDTO.getFieldIdOnEquipment());
         if (!staff.isPresent()) {
-            throw new StaffNotFoundException(equipmentDTO.getStaffId() + " : Staff Does Not Exist");
+            throw new StaffNotFoundException(equipmentDTO.getStaffIdOnEquipment() + " : Staff Does Not Exist");
         } else if (!field.isPresent()) {
-            throw new FieldNotFoundException(equipmentDTO.getFieldCode() + " : Field Does Not Exist");
+            throw new FieldNotFoundException(equipmentDTO.getFieldIdOnEquipment() + " : Field Does Not Exist");
         }
         Equipment equipment = mapping.mapEquipmentDtoToEntity(equipmentDTO);
         equipment.setEquipmentId(newEquipmentCode);
@@ -71,13 +71,13 @@ public class EquipmentServiceImpl implements EquipmentService {
         if (!equipmentRepo.existsById(equipmentDTO.getEquipmentId())) {
             throw new EquipmentNotFoundException(equipmentDTO.getEquipmentId() + " - Equipment Not Exist");
         }
-        Optional<Staff> staff = staffRepo.findById(equipmentDTO.getStaffId());
-        Optional<Field> field = fieldRepo.findById(equipmentDTO.getFieldCode());
+        Optional<Staff> staff = staffRepo.findById(equipmentDTO.getStaffIdOnEquipment());
+        Optional<Field> field = fieldRepo.findById(equipmentDTO.getFieldIdOnEquipment());
 
         if (!staff.isPresent()){
-            throw new StaffNotFoundException(equipmentDTO.getStaffId() + " - Staff Dose Not Exist");
+            throw new StaffNotFoundException(equipmentDTO.getStaffIdOnEquipment() + " - Staff Dose Not Exist");
         } else if (!field.isPresent()) {
-            throw new FileNotFoundException(equipmentDTO.getFieldCode() + " - Field Dose Not Exist");
+            throw new FileNotFoundException(equipmentDTO.getFieldIdOnEquipment() + " - Field Dose Not Exist");
         }
         equipmentRepo.save(mapping.mapEquipmentDtoToEntity(equipmentDTO));
     }

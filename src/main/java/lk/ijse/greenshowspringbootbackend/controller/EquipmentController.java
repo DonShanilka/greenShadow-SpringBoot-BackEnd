@@ -23,16 +23,16 @@ public class EquipmentController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveEquipment(
+            @RequestPart("availableCount") String availableCount,
             @RequestPart("name") String name,
-            @RequestPart("abCount") String abCount,
             @RequestPart("type") String type,
             @RequestPart("status") String status,
-            @RequestPart("fieldCode") String fieldCode,
-            @RequestPart("staffId") String staffId
+            @RequestPart("fieldIdOnEquipment") String fieldIdOnEquipment,
+            @RequestPart("staffIdOnEquipment") String staffIdOnEquipment
 
     )   {
         try {
-            equipmentService.saveEquipment(new EquipmentDTO(name,abCount,type,status,fieldCode,staffId));
+            equipmentService.saveEquipment(new EquipmentDTO(availableCount,name,type,status,fieldIdOnEquipment,staffIdOnEquipment));
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

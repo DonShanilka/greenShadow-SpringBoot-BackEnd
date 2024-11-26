@@ -27,42 +27,42 @@ public class LogController {
     @Autowired
     LogService logService;
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveLog(
             @RequestParam("date") Date date,
             @RequestParam("details") String details,
-            @RequestParam("image")MultipartFile image,
-            @RequestParam("date") List<String> logFields,
-            @RequestParam("date") List<String> logCrops,
-            @RequestParam("date") List<String> logStaffs
+            @RequestParam("image")MultipartFile image
+//            @RequestParam("date") List<String> logFields,
+//            @RequestParam("date") List<String> logCrops,
+//            @RequestParam("date") List<String> logStaffs
 
     ) {
         try {
             byte[] imageBytes = image.getBytes();
             String imageBase64 = AppUtil.imageBase64(imageBytes);
 
-            List<FieldDTO> fieldDTOS = new ArrayList<>();
-            for (String logField : logFields) {
-                FieldDTO fieldDTO = new FieldDTO();
-                fieldDTO.setFieldCode(logField);
-                fieldDTOS.add(fieldDTO);
-            }
+//            List<FieldDTO> fieldDTOS = new ArrayList<>();
+//            for (String logField : logFields) {
+//                FieldDTO fieldDTO = new FieldDTO();
+//                fieldDTO.setFieldCode(logField);
+//                fieldDTOS.add(fieldDTO);
+//            }
+//
+//            List<CropDTO> cropDTOS = new ArrayList<>();
+//            for (String logCrop : logCrops) {
+//                CropDTO cropDTO = new CropDTO();
+//                cropDTO.setCropCode(logCrop);
+//                cropDTOS.add(cropDTO);
+//            }
+//
+//            List<StaffDTO> staffDTOS = new ArrayList<>();
+//            for (String logStaff : logStaffs) {
+//                StaffDTO staffDTO = new StaffDTO();
+//                staffDTO.setId(logStaff);
+//                staffDTOS.add(staffDTO);
+//            }
 
-            List<CropDTO> cropDTOS = new ArrayList<>();
-            for (String logCrop : logCrops) {
-                CropDTO cropDTO = new CropDTO();
-                cropDTO.setCropCode(logCrop);
-                cropDTOS.add(cropDTO);
-            }
-
-            List<StaffDTO> staffDTOS = new ArrayList<>();
-            for (String logStaff : logStaffs) {
-                StaffDTO staffDTO = new StaffDTO();
-                staffDTO.setId(logStaff);
-                staffDTOS.add(staffDTO);
-            }
-
-            logService.saveLog(new LogDTO(date,details,imageBase64,fieldDTOS,cropDTOS,staffDTOS));
+            logService.saveLog(new LogDTO(date,details,imageBase64));
             return new ResponseEntity<>(HttpStatus.CREATED);
 
         } catch (IOException e) {
