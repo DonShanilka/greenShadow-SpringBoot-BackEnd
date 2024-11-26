@@ -29,9 +29,9 @@ public class LogController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveLog(
-            @RequestParam("date") Date date,
-            @RequestParam("details") String details,
-            @RequestParam("image")MultipartFile image
+            @RequestParam("logDate") String date,
+            @RequestParam("logDetails") String details,
+            @RequestParam("logImage")MultipartFile image
 //            @RequestParam("date") List<String> logFields,
 //            @RequestParam("date") List<String> logCrops,
 //            @RequestParam("date") List<String> logStaffs
@@ -40,7 +40,7 @@ public class LogController {
         try {
             byte[] imageBytes = image.getBytes();
             String imageBase64 = AppUtil.imageBase64(imageBytes);
-
+            System.out.println("Log Image Eka: " + imageBase64);
 //            List<FieldDTO> fieldDTOS = new ArrayList<>();
 //            for (String logField : logFields) {
 //                FieldDTO fieldDTO = new FieldDTO();

@@ -12,14 +12,14 @@ import java.util.List;
 @Data
 public class LogDTO {
     private String logCode;
-    private Date logDate;
+    private String logDate;
     private String observationDetails;
     private String image;
     private List<FieldDTO> relevantFields;
     private List<CropDTO> relevantCrops;
     private List<StaffDTO> relevantStaff;
 
-    public LogDTO(Date date, String details, String imageBase64, List<FieldDTO> fieldDTOS, List<CropDTO> cropDTOS, List<StaffDTO> staffDTOS) {
+    public LogDTO(String date, String details, String imageBase64, List<FieldDTO> fieldDTOS, List<CropDTO> cropDTOS, List<StaffDTO> staffDTOS) {
         this.logDate = date;
         this.observationDetails = details;
         this.image = imageBase64;
@@ -28,7 +28,7 @@ public class LogDTO {
         this.relevantStaff = staffDTOS;
     }
 
-    public LogDTO(Date date, String details, String imageBase64) {
+    public LogDTO(String date, String details, String imageBase64) {
         this.logDate = date;
         this.observationDetails = details;
         this.image = imageBase64;

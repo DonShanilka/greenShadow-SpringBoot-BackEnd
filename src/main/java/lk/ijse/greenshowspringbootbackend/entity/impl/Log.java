@@ -16,10 +16,10 @@ import java.util.List;
 public class Log {
     @Id
     private String logCode;
-    private Date logDate;
+    private String logDate;
     private String logDetails;
     @Column(columnDefinition = "LONGTEXT")
-    private String observedImage;
+    private String image;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "log_field_details",
