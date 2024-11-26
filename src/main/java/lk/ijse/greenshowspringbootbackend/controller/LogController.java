@@ -80,6 +80,6 @@ public class LogController {
 
     @GetMapping
     public ResponseUtil getAllLogs() {
-        return new ResponseUtil("Done", "Get All Logs", logService.getLogs());
+        return new ResponseUtil("Done ", "Get All Logs ", logService.getLogs());
     }
 }

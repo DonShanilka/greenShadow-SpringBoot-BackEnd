@@ -13,7 +13,7 @@ import java.util.List;
 public class LogDTO {
     private String logCode;
     private String logDate;
-    private String observationDetails;
+    private String logDetails;
     private String image;
     private List<FieldDTO> relevantFields;
     private List<CropDTO> relevantCrops;
@@ -21,7 +21,7 @@ public class LogDTO {
 
     public LogDTO(String date, String details, String imageBase64, List<FieldDTO> fieldDTOS, List<CropDTO> cropDTOS, List<StaffDTO> staffDTOS) {
         this.logDate = date;
-        this.observationDetails = details;
+        this.logDetails = details;
         this.image = imageBase64;
         this.relevantFields = fieldDTOS;
         this.relevantCrops = cropDTOS;
@@ -30,7 +30,7 @@ public class LogDTO {
 
     public LogDTO(String date, String details, String imageBase64) {
         this.logDate = date;
-        this.observationDetails = details;
+        this.logDetails = details;
         this.image = imageBase64;
     }
 }
