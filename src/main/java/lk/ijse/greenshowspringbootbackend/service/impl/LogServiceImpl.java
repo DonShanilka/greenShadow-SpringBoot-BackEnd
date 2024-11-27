@@ -63,5 +63,6 @@ public class LogServiceImpl implements LogService {
         if (!logRepo.existsById(logCode)) {
             throw new LogNotFoundException(logCode + " - Log does not exist");
         }
+        logRepo.deleteById(logCode);
     }
 }
