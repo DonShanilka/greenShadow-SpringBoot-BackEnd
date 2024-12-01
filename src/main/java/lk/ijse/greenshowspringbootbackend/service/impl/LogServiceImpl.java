@@ -21,6 +21,7 @@ import lk.ijse.greenshowspringbootbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,14 @@ public class LogServiceImpl implements LogService {
         log.setLogCode(logCode);
         logRepo.save(log);
 
+    }
+
+    @Override
+    public void updateLog(LogDTO logDTO) throws FileNotFoundException {
+        if (!logRepo.existsById(logDTO.getLogCode())) {
+            throw new FileNotFoundException("Log code " + logDTO.getLogCode() + " does not exist");
+        }
+        logRepo.save(mapping.mapLogDtoToEntity(logDTO));
     }
 
     @Override
