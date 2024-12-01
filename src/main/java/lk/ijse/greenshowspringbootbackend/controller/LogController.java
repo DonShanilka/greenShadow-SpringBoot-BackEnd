@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -81,5 +82,11 @@ public class LogController {
     @GetMapping
     public ResponseUtil getAllLogs() {
         return new ResponseUtil("Done ", "Get All Logs ", logService.getLogs());
+    }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateLog(@RequestBody LogDTO logDTO) throws FileNotFoundException {
+        logService.updateLog(logDTO);
+        return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
