@@ -113,4 +113,16 @@ public class LogController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/logStaff", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> saveLogStaff(@RequestBody LogStaffDTO logStaffDTO) {
+        logService.saveLogStaff(logStaffDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/logField", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> saveLogField(@RequestBody LogFieldDTO logFieldDTO) {
+        logService.saveLogField(logFieldDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
