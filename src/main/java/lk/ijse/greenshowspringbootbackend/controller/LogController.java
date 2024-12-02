@@ -5,6 +5,7 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.LogDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Log;
+import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.service.LogService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
 import lk.ijse.greenshowspringbootbackend.util.ResponseUtil;
@@ -84,9 +85,28 @@ public class LogController {
         return new ResponseUtil("Done ", "Get All Logs ", logService.getLogs());
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> updateLog(@RequestBody LogDTO logDTO) throws FileNotFoundException {
-        logService.updateLog(logDTO);
-        return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateField(
+            @RequestPart("logCode") String logCode,
+            @RequestPart("logDate") String logDate,
+            @RequestPart("logDetails") String logDetails,
+            @RequestPart("image") MultipartFile image
+    ) {
+
+        try {
+
+            byte[] byteProPic1 = image.getBytes();
+            String base64proPic1 = AppUtil.imageBase64(byteProPic1);
+
+            logService.updateLog(new LogDTO(logCode,logDate,logDetails,base64proPic1));
+
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (DataPersistException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

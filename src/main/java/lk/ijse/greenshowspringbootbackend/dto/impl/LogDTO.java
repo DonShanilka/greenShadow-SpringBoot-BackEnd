@@ -33,4 +33,11 @@ public class LogDTO {
         this.logDetails = details;
         this.image = imageBase64;
     }
+
+    public LogDTO(String logCode, String logDate, String logDetails, String base64proPic1) {
+        this.logCode = logCode;
+        this.logDate = logDate;
+        this.logDetails = logDetails;
+        this.image = base64proPic1;
+    }
 }
