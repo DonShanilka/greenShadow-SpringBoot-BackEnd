@@ -1,9 +1,6 @@
 package lk.ijse.greenshowspringbootbackend.controller;
 
-import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
-import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
-import lk.ijse.greenshowspringbootbackend.dto.impl.LogDTO;
-import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
+import lk.ijse.greenshowspringbootbackend.dto.impl.*;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Log;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.service.LogService;
@@ -108,5 +105,11 @@ public class LogController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping(value = "/logCrops", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> saveLogCrops(@RequestBody CropLogDTO cropLogDTO) {
+        logService.saveLogCrops(cropLogDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

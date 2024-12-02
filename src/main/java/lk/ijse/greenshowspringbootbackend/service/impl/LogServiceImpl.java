@@ -62,25 +62,12 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public List<LogDTO> getLogs() {
-        return mapping.mapLogEntitiesToDtos(logRepo.findAll());
-    }
-
-    @Override
-    public void deleteLog(String logCode) {
-        if (!logRepo.existsById(logCode)) {
-            throw new LogNotFoundException(logCode + " - Log does not exist");
-        }
-        logRepo.deleteById(logCode);
-    }
-
-    @Override
     public void saveLogCrops(CropLogDTO cropLogDTO) {
         Optional<Log> optionalLog = logRepo.findById(cropLogDTO.getLogId());
         Optional<Crop> optionalCrop = cropRepo.findById(cropLogDTO.getCropId());
 
         if (!optionalLog.isPresent()) {
-            throw new LogNotFoundException("Field ID " + cropLogDTO.getLogId() + " does not exist");
+            throw new LogNotFoundException("Log ID " + cropLogDTO.getLogId() + " does not exist");
         } else if (!optionalCrop.isPresent()) {
             throw new CropNotFoundException("Crop ID " + cropLogDTO.getCropId() + " does not exist");
         }
@@ -96,5 +83,20 @@ public class LogServiceImpl implements LogService {
         crop.getLogs().add(log);
         logRepo.save(log);
     }
+
+    @Override
+    public List<LogDTO> getLogs() {
+        return mapping.mapLogEntitiesToDtos(logRepo.findAll());
+    }
+
+    @Override
+    public void deleteLog(String logCode) {
+        if (!logRepo.existsById(logCode)) {
+            throw new LogNotFoundException(logCode + " - Log does not exist");
+        }
+        logRepo.deleteById(logCode);
+    }
+
+
 }
 
