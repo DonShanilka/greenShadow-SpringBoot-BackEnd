@@ -111,5 +111,25 @@ public class LogServiceImpl implements LogService {
         field.getLogs().add(log);
         logRepo.save(log);
     }
+
+    @Override
+    public void saveLogStaff(LogStaffDTO logStaffDTO) {
+        Optional<Log> optionalLog = logRepo.findById(logStaffDTO.getLogId());
+        Optional<Staff> optionalStaff = staffRepo.findById(logStaffDTO.getStaffId());
+
+        if (!optionalLog.isPresent()) {
+            throw new LogNotFoundException("Log ID " + logStaffDTO.getLogId() + " does not exist");
+        } else if (!optionalStaff.isPresent()) {
+            throw new CropNotFoundException("Staff ID " + logStaffDTO.getStaffId() + " does not exist");
+        }
+
+        Log log = optionalLog.get();
+        Staff staff = optionalStaff.get();
+
+        log.getStaffs().add(staff);
+        staff.getLogs().add(log);
+        logRepo.save(log);
+    }
+
 }
 
