@@ -112,4 +112,5 @@ public class LogController {
         logService.saveLogCrops(cropLogDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 }

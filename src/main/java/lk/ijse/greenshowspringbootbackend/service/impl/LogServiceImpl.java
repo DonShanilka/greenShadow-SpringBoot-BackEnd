@@ -75,10 +75,6 @@ public class LogServiceImpl implements LogService {
         Log log = optionalLog.get();
         Crop crop = optionalCrop.get();
 
-//        if (field.getCrops().contains(crop)) {
-//            throw new DataPersistException(fieldCropDTO.getFieldCode() + " Field Already Exists This Crop" + crop.getCropCode());
-//        }
-
         log.getCrops().add(crop);
         crop.getLogs().add(log);
         logRepo.save(log);
@@ -97,6 +93,23 @@ public class LogServiceImpl implements LogService {
         logRepo.deleteById(logCode);
     }
 
+    @Override
+    public void saveLogField(LogFieldDTO logFieldDTO) {
+        Optional<Log> optionalLog = logRepo.findById(logFieldDTO.getLogId());
+        Optional<Field> optionalField = fieldRepo.findById(logFieldDTO.getFieldId());
 
+        if (!optionalLog.isPresent()) {
+            throw new LogNotFoundException("Log ID " + logFieldDTO.getLogId() + " does not exist");
+        } else if (!optionalField.isPresent()) {
+            throw new CropNotFoundException("Field ID " + logFieldDTO.getFieldId() + " does not exist");
+        }
+
+        Log log = optionalLog.get();
+        Field field = optionalField.get();
+
+        log.getFields().add(field);
+        field.getLogs().add(log);
+        logRepo.save(log);
+    }
 }
 
