@@ -1,5 +1,6 @@
 package lk.ijse.greenshowspringbootbackend.service;
 
+import lk.ijse.greenshowspringbootbackend.dto.impl.CropLogDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.LogDTO;
 
@@ -11,4 +12,5 @@ public interface LogService {
     List<LogDTO> getLogs();
     void deleteLog(String logCode);
     void updateLog(LogDTO logDTO) throws FileNotFoundException;
+    void saveLogCrops(CropLogDTO cropLogDTO);
 }

@@ -1,14 +1,12 @@
 package lk.ijse.greenshowspringbootbackend.service.impl;
 
 import jakarta.transaction.Transactional;
-import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
-import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
-import lk.ijse.greenshowspringbootbackend.dto.impl.LogDTO;
-import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
+import lk.ijse.greenshowspringbootbackend.dto.impl.*;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Log;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
+import lk.ijse.greenshowspringbootbackend.exception.CropNotFoundException;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.exception.LogNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
@@ -24,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -74,4 +73,28 @@ public class LogServiceImpl implements LogService {
         }
         logRepo.deleteById(logCode);
     }
+
+    @Override
+    public void saveLogCrops(CropLogDTO cropLogDTO) {
+        Optional<Log> optionalLog = logRepo.findById(cropLogDTO.getLogId());
+        Optional<Crop> optionalCrop = cropRepo.findById(cropLogDTO.getCropId());
+
+        if (!optionalLog.isPresent()) {
+            throw new LogNotFoundException("Field ID " + cropLogDTO.getLogId() + " does not exist");
+        } else if (!optionalCrop.isPresent()) {
+            throw new CropNotFoundException("Crop ID " + cropLogDTO.getCropId() + " does not exist");
+        }
+
+        Log log = optionalLog.get();
+        Crop crop = optionalCrop.get();
+
+//        if (field.getCrops().contains(crop)) {
+//            throw new DataPersistException(fieldCropDTO.getFieldCode() + " Field Already Exists This Crop" + crop.getCropCode());
+//        }
+
+        log.getCrops().add(crop);
+        crop.getLogs().add(log);
+        logRepo.save(log);
+    }
 }
+
