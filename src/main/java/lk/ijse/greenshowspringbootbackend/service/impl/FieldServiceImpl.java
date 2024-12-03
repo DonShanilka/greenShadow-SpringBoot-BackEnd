@@ -73,39 +73,39 @@ public class FieldServiceImpl implements FieldService {
         fieldRepo.save(mapping.mapFieldDtoToEntity(fieldDTO));
     }
 
-    @Override
-    public void saveFieldCrops(FieldCropDTO fieldCropDTO) throws FileNotFoundException {
-        Optional<Field> optionalField = fieldRepo.findById(fieldCropDTO.getFieldCode());
-        Optional<Crop> optionalCrop = cropRepo.findById(fieldCropDTO.getCropCode());
-
-        if (!optionalField.isPresent()) {
-            throw new FileNotFoundException("Field ID " + fieldCropDTO.getFieldCode() + " does not exist");
-        } else if (!optionalCrop.isPresent()) {
-            throw new CropNotFoundException("Crop ID " + fieldCropDTO.getCropCode() + " does not exist");
-        }
-        Field field = optionalField.get();
-        Crop crop = optionalCrop.get();
-        if (field.getCrops().contains(crop)) {
-            throw new DataPersistException(fieldCropDTO.getFieldCode() + " Field Already Exists This Crop" + crop.getCropCode());
-        }
-        field.getCrops().add(crop);
-        crop.getFields().add(field);
-        fieldRepo.save(field);
-    }
-
-    @Override
-    public void deleteFieldCrops(FieldCropDTO fieldCropDTO) {
-        Optional<Field> fieldOpt = fieldRepo.findById(fieldCropDTO.getFieldCode());
-        Optional<Crop> cropOpt = cropRepo.findById(fieldCropDTO.getCropCode());
-        if(!fieldOpt.isPresent()) {
-            throw new FieldNotFoundException(fieldCropDTO.getFieldCode() + " : Field Does Not Exist");
-        } else if(!cropOpt.isPresent()) {
-            throw new CropNotFoundException(fieldCropDTO.getCropCode() + " : Crop Does Not Exist");
-        }
-        Field field = fieldOpt.get();
-        Crop crop = cropOpt.get();
-        field.getCrops().remove(crop);
-        crop.getFields().remove(field);
-        fieldRepo.save(field);
-    }
+//    @Override
+//    public void saveFieldCrops(FieldCropDTO fieldCropDTO) throws FileNotFoundException {
+//        Optional<Field> optionalField = fieldRepo.findById(fieldCropDTO.getFieldCode());
+//        Optional<Crop> optionalCrop = cropRepo.findById(fieldCropDTO.getCropCode());
+//
+//        if (!optionalField.isPresent()) {
+//            throw new FileNotFoundException("Field ID " + fieldCropDTO.getFieldCode() + " does not exist");
+//        } else if (!optionalCrop.isPresent()) {
+//            throw new CropNotFoundException("Crop ID " + fieldCropDTO.getCropCode() + " does not exist");
+//        }
+//        Field field = optionalField.get();
+//        Crop crop = optionalCrop.get();
+//        if (field.getCrops().contains(crop)) {
+//            throw new DataPersistException(fieldCropDTO.getFieldCode() + " Field Already Exists This Crop" + crop.getCropCode());
+//        }
+//        field.getCrops().add(crop);
+//        crop.getFields().add(field);
+//        fieldRepo.save(field);
+//    }
+//
+//    @Override
+//    public void deleteFieldCrops(FieldCropDTO fieldCropDTO) {
+//        Optional<Field> fieldOpt = fieldRepo.findById(fieldCropDTO.getFieldCode());
+//        Optional<Crop> cropOpt = cropRepo.findById(fieldCropDTO.getCropCode());
+//        if(!fieldOpt.isPresent()) {
+//            throw new FieldNotFoundException(fieldCropDTO.getFieldCode() + " : Field Does Not Exist");
+//        } else if(!cropOpt.isPresent()) {
+//            throw new CropNotFoundException(fieldCropDTO.getCropCode() + " : Crop Does Not Exist");
+//        }
+//        Field field = fieldOpt.get();
+//        Crop crop = cropOpt.get();
+//        field.getCrops().remove(crop);
+//        crop.getFields().remove(field);
+//        fieldRepo.save(field);
+//    }
 }

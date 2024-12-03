@@ -39,13 +39,9 @@ public class Staff {
     @ManyToMany(mappedBy = "staffs", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Log> logs;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "field_staff_details",
-            joinColumns = @JoinColumn(name = "staff_id"),
-            inverseJoinColumns = @JoinColumn(name = "field_id")
-    )
-    private List<Field> fields;
+    @ManyToOne
+    @JoinColumn(name = "field_Id")
+    Field field;
 
     @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
     private List<Vehicle> vehicles;

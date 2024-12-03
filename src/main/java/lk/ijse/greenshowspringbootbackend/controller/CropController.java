@@ -26,13 +26,14 @@ public class CropController {
             @RequestPart("scientificName") String scientificName,
             @RequestPart("cropImage") MultipartFile cropImage,
             @RequestPart("category") String category,
-            @RequestPart("season") String season
+            @RequestPart("season") String season,
+            @RequestPart("fieldCode") String fieldCode
     ) {
         try {
             byte[] imageBytes = cropImage.getBytes();
             String imageBase64 = AppUtil.imageBase64(imageBytes);
-
-            cropService.saveFieldCrops(new CropDTO(cropName,scientificName,imageBase64,category,season));
+            System.out.println(fieldCode);
+            cropService.saveFieldCrops(new CropDTO(cropName,scientificName,imageBase64,category,season,fieldCode));
 
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {

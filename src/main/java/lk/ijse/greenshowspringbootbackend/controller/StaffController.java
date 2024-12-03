@@ -40,19 +40,19 @@ public class StaffController {
         return new ResponseUtil("Don"," Get All Staff " ,staffService.getAllStaffs());
     }
 
-    @PostMapping(value = "/fieldstaff", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveFieldStaff(@RequestBody FieldStaffDTO fieldStaffDTO) {
-        staffService.saveFieldStaff(fieldStaffDTO);
-        return new  ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/fieldstaff")
-    public ResponseEntity<Void> deleteFieldStaff(
-            @RequestParam("fieldCode") String fieldCode,
-            @RequestParam("staffCode") String staffCode
-    ) {
-        staffService.deleteFieldStaff(fieldCode, staffCode);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+//    @PostMapping(value = "/fieldstaff", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Void> saveFieldStaff(@RequestBody FieldStaffDTO fieldStaffDTO) {
+//        staffService.saveFieldStaff(fieldStaffDTO);
+//        return new  ResponseEntity<>(HttpStatus.CREATED);
+//    }
+//
+//    @DeleteMapping("/fieldstaff")
+//    public ResponseEntity<Void> deleteFieldStaff(
+//            @RequestParam("fieldCode") String fieldCode,
+//            @RequestParam("staffCode") String staffCode
+//    ) {
+//        staffService.deleteFieldStaff(fieldCode, staffCode);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
 }

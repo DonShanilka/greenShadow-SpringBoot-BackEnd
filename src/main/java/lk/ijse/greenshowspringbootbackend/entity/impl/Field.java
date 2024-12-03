@@ -24,14 +24,14 @@ public class Field {
     private String fieldImage2;
 
     @ManyToMany(mappedBy = "fields", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Crop> crops;
-
-    @ManyToMany(mappedBy = "fields", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Log> logs;
 
-    @ManyToMany(mappedBy = "fields", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Staff> staffs;
+    @OneToMany(mappedBy = "field", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Staff> staff;
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     private List<Equipment> equipment;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    private List<Crop> crop;
 }

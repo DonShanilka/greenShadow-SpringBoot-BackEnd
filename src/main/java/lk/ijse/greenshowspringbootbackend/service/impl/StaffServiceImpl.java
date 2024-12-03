@@ -6,6 +6,7 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.StaffDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
+import lk.ijse.greenshowspringbootbackend.exception.FieldNotFoundException;
 import lk.ijse.greenshowspringbootbackend.exception.StaffNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.repo.StaffRepo;
@@ -37,6 +38,10 @@ public class StaffServiceImpl implements StaffService {
         if (staffRepo.existsById(newStaffCrop)) {
             throw new DataPersistException("Crop ID " + newStaffCrop + " already exists");
         }
+        Optional<Field> field = fieldRepo.findById(staffDTO.getFieldCode());
+        if (!field.isPresent()) {
+            throw new FieldNotFoundException(staffDTO.getFieldCode() + " : Field Does Not Exist");
+        }
         // Map the CropDTO to a Crop entity and set the generated ID
         Staff staffEntity = mapping.mapStaffDtoToEntity(staffDTO);
         staffEntity.setId(newStaffCrop);
@@ -65,40 +70,40 @@ public class StaffServiceImpl implements StaffService {
         return mapping.mapStaffEntitiesToDtos(staffRepo.findAll());
     }
 
-    @Override
-    public void saveFieldStaff(FieldStaffDTO fieldStaffDTO) {
-        Optional<Field> fieldOptional = fieldRepo.findById(fieldStaffDTO.getFieldCode());
-        Optional<Staff> staffOptional = staffRepo.findById(fieldStaffDTO.getStaffCode());
+//    @Override
+//    public void saveFieldStaff(FieldStaffDTO fieldStaffDTO) {
+//        Optional<Field> fieldOptional = fieldRepo.findById(fieldStaffDTO.getFieldCode());
+//        Optional<Staff> staffOptional = staffRepo.findById(fieldStaffDTO.getStaffCode());
+//
+//        if(!fieldOptional.isPresent() || !staffOptional.isPresent()) {
+//            throw new DataPersistException(fieldStaffDTO.getFieldCode() + " Or " + fieldStaffDTO.getStaffCode() + " does not exist");
+//        }
+//
+//        Field field = fieldOptional.get();
+//        Staff staff = staffOptional.get();
+//        if (field.getStaffs().contains(staff)) {
+//            throw new DataPersistException("Field " + fieldStaffDTO.getFieldCode() + " already exists");
+//        }
+//
+//        field.getStaffs().add(staff);
+//        staff.getFields().add(field);
+//        fieldRepo.save(field);
+//    }
 
-        if(!fieldOptional.isPresent() || !staffOptional.isPresent()) {
-            throw new DataPersistException(fieldStaffDTO.getFieldCode() + " Or " + fieldStaffDTO.getStaffCode() + " does not exist");
-        }
-
-        Field field = fieldOptional.get();
-        Staff staff = staffOptional.get();
-        if (field.getStaffs().contains(staff)) {
-            throw new DataPersistException("Field " + fieldStaffDTO.getFieldCode() + " already exists");
-        }
-
-        field.getStaffs().add(staff);
-        staff.getFields().add(field);
-        fieldRepo.save(field);
-    }
-
-    @Override
-    public void deleteFieldStaff(String fieldCode, String staffCode) {
-        Optional<Field> fieldOptional = fieldRepo.findById(fieldCode);
-        Optional<Staff> staffOptional = staffRepo.findById(staffCode);
-
-        if(!fieldOptional.isPresent() || !staffOptional.isPresent()) {
-            throw new DataPersistException(fieldCode + " Or " + staffCode + " does not exist");
-        }
-
-        Field field = fieldOptional.get();
-        Staff staff = staffOptional.get();
-
-        field.getStaffs().remove(staff);
-        staff.getFields().remove(field);
-        fieldRepo.save(field);
-    }
+//    @Override
+//    public void deleteFieldStaff(String fieldCode, String staffCode) {
+//        Optional<Field> fieldOptional = fieldRepo.findById(fieldCode);
+//        Optional<Staff> staffOptional = staffRepo.findById(staffCode);
+//
+//        if(!fieldOptional.isPresent() || !staffOptional.isPresent()) {
+//            throw new DataPersistException(fieldCode + " Or " + staffCode + " does not exist");
+//        }
+//
+//        Field field = fieldOptional.get();
+//        Staff staff = staffOptional.get();
+//
+//        field.getStaffs().remove(staff);
+//        staff.getFields().remove(field);
+//        fieldRepo.save(field);
+//    }
 }

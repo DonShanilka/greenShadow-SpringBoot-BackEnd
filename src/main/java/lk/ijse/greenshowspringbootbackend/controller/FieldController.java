@@ -93,15 +93,15 @@ public class FieldController {
        return fieldService.getAllField();
     }
 
-    @PostMapping(value = "/fieldCrops", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveFieldCrips(@RequestBody FieldCropDTO fieldCropDTO) throws FileNotFoundException {
-        fieldService.saveFieldCrops(fieldCropDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @DeleteMapping(value = "/fieldCrops", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> deleteFieldCrop(@RequestBody FieldCropDTO fieldCropDTO) throws FileNotFoundException {
-        fieldService.deleteFieldCrops(fieldCropDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+//    @PostMapping(value = "/fieldCrops", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Void> saveFieldCrips(@RequestBody FieldCropDTO fieldCropDTO) throws FileNotFoundException {
+//        fieldService.saveFieldCrops(fieldCropDTO);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
+//
+//    @DeleteMapping(value = "/fieldCrops", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<Void> deleteFieldCrop(@RequestBody FieldCropDTO fieldCropDTO) throws FileNotFoundException {
+//        fieldService.deleteFieldCrops(fieldCropDTO);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
 }

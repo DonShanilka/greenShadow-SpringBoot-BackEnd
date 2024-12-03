@@ -45,12 +45,13 @@ public class EquipmentServiceImpl implements EquipmentService {
         }
 
         Optional<Staff> staff = staffRepo.findById(equipmentDTO.getStaffIdOnEquipment());
-        Optional<Field> field = fieldRepo.findById(equipmentDTO.getFieldIdOnEquipment());
+        Optional<Field> field = fieldRepo.findById(equipmentDTO.getFieldCode());
         if (!staff.isPresent()) {
             throw new StaffNotFoundException(equipmentDTO.getStaffIdOnEquipment() + " : Staff Does Not Exist");
         } else if (!field.isPresent()) {
-            throw new FieldNotFoundException(equipmentDTO.getFieldIdOnEquipment() + " : Field Does Not Exist");
+            throw new FieldNotFoundException(equipmentDTO.getFieldCode() + " : Field Does Not Exist");
         }
+
         Equipment equipment = mapping.mapEquipmentDtoToEntity(equipmentDTO);
         equipment.setEquipmentId(newEquipmentCode);
         equipmentRepo.save(equipment);
@@ -72,12 +73,12 @@ public class EquipmentServiceImpl implements EquipmentService {
             throw new EquipmentNotFoundException(equipmentDTO.getEquipmentId() + " - Equipment Not Exist");
         }
         Optional<Staff> staff = staffRepo.findById(equipmentDTO.getStaffIdOnEquipment());
-        Optional<Field> field = fieldRepo.findById(equipmentDTO.getFieldIdOnEquipment());
+        Optional<Field> field = fieldRepo.findById(equipmentDTO.getFieldCode());
 
         if (!staff.isPresent()){
             throw new StaffNotFoundException(equipmentDTO.getStaffIdOnEquipment() + " - Staff Dose Not Exist");
         } else if (!field.isPresent()) {
-            throw new FileNotFoundException(equipmentDTO.getFieldIdOnEquipment() + " - Field Dose Not Exist");
+            throw new FileNotFoundException(equipmentDTO.getFieldCode() + " - Field Dose Not Exist");
         }
         equipmentRepo.save(mapping.mapEquipmentDtoToEntity(equipmentDTO));
     }

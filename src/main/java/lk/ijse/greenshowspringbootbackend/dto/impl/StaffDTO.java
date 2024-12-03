@@ -32,4 +32,5 @@ public class StaffDTO implements SuperDTO , LogStatus {
     private String contactNo;
     private String email;
     private Role role;
+    private String fieldCode;
 }

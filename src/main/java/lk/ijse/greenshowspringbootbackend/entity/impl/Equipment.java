@@ -21,6 +21,7 @@ public class Equipment {
     @ManyToOne
     @JoinColumn(name = "staff_id")
     Staff staff;
+
     @ManyToOne
     @JoinColumn(name = "field_id")
     Field field;

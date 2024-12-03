@@ -31,35 +31,12 @@ public class LogController {
             @RequestParam("logDate") String date,
             @RequestParam("logDetails") String details,
             @RequestParam("logImage")MultipartFile image
-//            @RequestParam("date") List<String> logFields,
-//            @RequestParam("date") List<String> logCrops,
-//            @RequestParam("date") List<String> logStaffs
 
     ) {
         try {
             byte[] imageBytes = image.getBytes();
             String imageBase64 = AppUtil.imageBase64(imageBytes);
             System.out.println("Log Image Eka: " + imageBase64);
-//            List<FieldDTO> fieldDTOS = new ArrayList<>();
-//            for (String logField : logFields) {
-//                FieldDTO fieldDTO = new FieldDTO();
-//                fieldDTO.setFieldCode(logField);
-//                fieldDTOS.add(fieldDTO);
-//            }
-//
-//            List<CropDTO> cropDTOS = new ArrayList<>();
-//            for (String logCrop : logCrops) {
-//                CropDTO cropDTO = new CropDTO();
-//                cropDTO.setCropCode(logCrop);
-//                cropDTOS.add(cropDTO);
-//            }
-//
-//            List<StaffDTO> staffDTOS = new ArrayList<>();
-//            for (String logStaff : logStaffs) {
-//                StaffDTO staffDTO = new StaffDTO();
-//                staffDTO.setId(logStaff);
-//                staffDTOS.add(staffDTO);
-//            }
 
             logService.saveLog(new LogDTO(date,details,imageBase64));
             return new ResponseEntity<>(HttpStatus.CREATED);

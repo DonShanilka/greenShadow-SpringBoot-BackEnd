@@ -15,7 +15,7 @@ public class EquipmentDTO implements SuperDTO, EquipmentStatus {
     private String name;
     private String type;
     private String status;
-    private String fieldIdOnEquipment;
+    private String fieldCode;
     private String staffIdOnEquipment;
 
     public EquipmentDTO(String availableCount, String name,String type,String status ,String fieldIdOnEquipment, String staffIdOnEquipment) {
@@ -23,7 +23,7 @@ public class EquipmentDTO implements SuperDTO, EquipmentStatus {
         this.name = name;
         this.type = type;
         this.status = status;
-        this.fieldIdOnEquipment = fieldIdOnEquipment;
+        this.fieldCode = fieldIdOnEquipment;
         this.staffIdOnEquipment = staffIdOnEquipment;
     }
 }

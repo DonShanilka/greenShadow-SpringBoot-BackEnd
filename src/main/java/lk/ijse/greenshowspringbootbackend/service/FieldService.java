@@ -13,6 +13,6 @@ public interface FieldService {
     CropStatus getFieldById(String fieldCode);
     void deleteFieldById(String fieldCode) throws FileNotFoundException;
     void updateField(FieldDTO fieldDTO) throws FileNotFoundException;
-    void saveFieldCrops(FieldCropDTO fieldCropDTO) throws FileNotFoundException;
-    void deleteFieldCrops(FieldCropDTO fieldCropDTO) throws FileNotFoundException;
+//    void saveFieldCrops(FieldCropDTO fieldCropDTO) throws FileNotFoundException;
+//    void deleteFieldCrops(FieldCropDTO fieldCropDTO) throws FileNotFoundException;
 }

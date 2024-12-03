@@ -4,9 +4,13 @@ import jakarta.transaction.Transactional;
 import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
+import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
 import lk.ijse.greenshowspringbootbackend.exception.CropNotFoundException;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
+import lk.ijse.greenshowspringbootbackend.exception.FieldNotFoundException;
+import lk.ijse.greenshowspringbootbackend.exception.StaffNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
+import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.service.CropService;
 import lk.ijse.greenshowspringbootbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +25,8 @@ public class CropServiceImpl implements CropService {
 
     @Autowired
     private CropRepo cropRepo;
-
+    @Autowired
+    private FieldRepo fieldRepo;
     @Autowired
     private Mapping mapping;
 
@@ -48,6 +53,12 @@ public class CropServiceImpl implements CropService {
         if (cropRepo.existsById(newCropId)) {
             throw new DataPersistException("Crop ID " + newCropId + " already exists");
         }
+
+        Optional<Field> field = fieldRepo.findById(cropDTO.getFieldCode());
+        if (!field.isPresent()) {
+            throw new FieldNotFoundException(cropDTO.getFieldCode() + " : Field Does Not Exist");
+        }
+        System.out.println(cropDTO.getFieldCode());
         // Map the CropDTO to a Crop entity and set the generated ID
         Crop cropEntity = mapping.mapCropDtoToEntity(cropDTO);
         cropEntity.setCropCode(newCropId);
