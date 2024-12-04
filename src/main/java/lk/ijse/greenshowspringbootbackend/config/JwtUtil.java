@@ -79,7 +79,7 @@ public class JwtUtil {
         return claims.getSubject();
     }
 
-    public List<String> getRoles(Claims claims) {
-        return  (ArrayList<String>) claims.get("role");
+    public String getRoles(Claims claims) {
+        return (String) claims.get("role");
     }
 }
