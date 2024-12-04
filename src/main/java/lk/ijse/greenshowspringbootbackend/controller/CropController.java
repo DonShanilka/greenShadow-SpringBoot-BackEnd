@@ -50,6 +50,7 @@ public class CropController {
             @RequestPart("cropImage") MultipartFile cropImage,
             @RequestPart("category") String category,
             @RequestPart("season") String season,
+            @RequestPart("fieldCode") String fieldCode,
             @PathVariable("cropCode") String cropCode
     ) {
 
@@ -69,6 +70,7 @@ public class CropController {
         dtos.setCropImage(imageBase64);
         dtos.setCategory(category);
         dtos.setSeason(season);
+        dtos.setFieldCode(fieldCode);
 
         cropService.updateFieldCrops(cropCode,dtos);
     }

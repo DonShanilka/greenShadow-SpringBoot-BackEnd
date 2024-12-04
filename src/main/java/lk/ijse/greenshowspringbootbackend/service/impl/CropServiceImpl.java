@@ -5,10 +5,7 @@ import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
-import lk.ijse.greenshowspringbootbackend.exception.CropNotFoundException;
-import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
-import lk.ijse.greenshowspringbootbackend.exception.FieldNotFoundException;
-import lk.ijse.greenshowspringbootbackend.exception.StaffNotFoundException;
+import lk.ijse.greenshowspringbootbackend.exception.*;
 import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;
 import lk.ijse.greenshowspringbootbackend.service.CropService;
@@ -16,6 +13,7 @@ import lk.ijse.greenshowspringbootbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,18 +65,16 @@ public class CropServiceImpl implements CropService {
     }
 
     @Override
-    public void updateFieldCrops(String cropCode, CropDTO cropDTO) {
-        Optional<Crop> tempCrop = cropRepo.findById(cropCode);
+    public void updateFieldCrops(CropDTO cropDTO) throws FileNotFoundException {
         if (!cropRepo.existsById(cropDTO.getCropCode())) {
-            throw new CropNotFoundException("Crop ID " + cropDTO.getCropCode() + " not found");
+            throw new EquipmentNotFoundException(cropDTO.getCropCode() + " - Crop Not Exist");
         }
-        if (tempCrop.isPresent()) {
-            tempCrop.get().setCropName(cropDTO.getCropName());
-            tempCrop.get().setScientificName(cropDTO.getScientificName());
-            tempCrop.get().setCropImage(cropDTO.getCropImage());
-            tempCrop.get().setCategory(cropDTO.getCategory());
-            tempCrop.get().setSeason(cropDTO.getSeason());
+        Optional<Field> field = fieldRepo.findById(cropDTO.getFieldCode());
+
+        if (!field.isPresent()){
+            throw new FileNotFoundException(cropDTO.getFieldCode() + " - Field Dose Not Exist");
         }
+        cropRepo.save(mapping.mapCropDtoToEntity(cropDTO));
     }
 
     @Override
