@@ -37,9 +37,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void login(String email, String password) {
+        // Find user by email
+        Optional<User> userOptional = userRepo.findByEmail(email);
+
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("User not found for email: " + email);
+        }
+        User user = userOptional.get();
+        // Check if password matches
+        if (!user.getPassword().equals(password)) {
+            throw new UserNotFoundException("Invalid password");
+        }
+        // If successful, proceed with login logic
+        System.out.println("Login successful for email: " + email);
+    }
+
+    @Override
     public void update(UserDTO userDTO) {
         if (!userRepo.existsById(userDTO.getEmail())) {
-            throw new VehicleNotFoundException(userDTO.getEmail() + " does not exist");
+            throw new UserNotFoundException(userDTO.getEmail() + " does not exist");
         }
         userRepo.save(mapping.mapUserDtoToEntity(userDTO));
     }
@@ -47,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(String userId) {
         if (!userRepo.existsById(userId)) {
-            throw new VehicleNotFoundException(userId + " does not exist");
+            throw new UserNotFoundException(userId + " does not exist");
         }
         userRepo.deleteById(userId);
     }

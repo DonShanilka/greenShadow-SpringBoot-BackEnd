@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
+
 @CrossOrigin
 @RestController
 @RequestMapping("api/v1/crops")
@@ -52,7 +54,7 @@ public class CropController {
             @RequestPart("season") String season,
             @RequestPart("fieldCode") String fieldCode,
             @PathVariable("cropCode") String cropCode
-    ) {
+    ) throws FileNotFoundException {
 
         String imageBase64 = "";
 
@@ -72,7 +74,7 @@ public class CropController {
         dtos.setSeason(season);
         dtos.setFieldCode(fieldCode);
 
-        cropService.updateFieldCrops(cropCode,dtos);
+        cropService.updateFieldCrops(dtos);
     }
 
     @DeleteMapping("/{cropCode}")
