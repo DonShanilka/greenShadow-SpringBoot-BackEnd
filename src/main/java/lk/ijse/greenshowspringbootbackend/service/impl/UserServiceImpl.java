@@ -1,18 +1,18 @@
 package lk.ijse.greenshowspringbootbackend.service.impl;
 
 import jakarta.transaction.Transactional;
+import lk.ijse.greenshowspringbootbackend.customStatusCode.SelectedErrorStatus;
 import lk.ijse.greenshowspringbootbackend.dto.impl.UserDTO;
-import lk.ijse.greenshowspringbootbackend.entity.Role;
+import lk.ijse.greenshowspringbootbackend.dto.status.Status;
 import lk.ijse.greenshowspringbootbackend.entity.impl.User;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
-import lk.ijse.greenshowspringbootbackend.exception.StaffNotFoundException;
 import lk.ijse.greenshowspringbootbackend.exception.UserNotFoundException;
-import lk.ijse.greenshowspringbootbackend.exception.VehicleNotFoundException;
 import lk.ijse.greenshowspringbootbackend.repo.UserRepo;
 import lk.ijse.greenshowspringbootbackend.service.UserService;
 import lk.ijse.greenshowspringbootbackend.util.AppUtil;
 import lk.ijse.greenshowspringbootbackend.util.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,49 +29,48 @@ public class UserServiceImpl implements UserService {
     private AppUtil appUtil;
 
     @Override
-    public void save(UserDTO userDTO) {
-        User saveUser = userRepo.save(mapping.mapUserDtoToEntity(userDTO));
-        if (saveUser == null) {
-            throw new DataPersistException("Save User Failed");
+    public void saveUser(UserDTO UserDto) {
+        User savedUser =
+                userRepo.save(mapping.mapUserDtoToEntity(UserDto));
+        if (savedUser == null) {
+            throw new DataPersistException("");
         }
     }
 
     @Override
-    public void login(String email, String password) {
-        // Find user by email
-        Optional<User> userOptional = userRepo.findByEmail(email);
-
-        if (userOptional.isEmpty()) {
-            throw new UserNotFoundException("User not found for email: " + email);
-        }
-        User user = userOptional.get();
-        // Check if password matches
-        if (!user.getPassword().equals(password)) {
-            throw new UserNotFoundException("Invalid password");
-        }
-        // If successful, proceed with login logic
-        System.out.println("Login successful for email: " + email);
-    }
-
-    @Override
-    public void update(UserDTO userDTO) {
-        if (!userRepo.existsById(userDTO.getEmail())) {
-            throw new UserNotFoundException(userDTO.getEmail() + " does not exist");
-        }
-        userRepo.save(mapping.mapUserDtoToEntity(userDTO));
-    }
-
-    @Override
-    public void delete(String userId) {
-        if (!userRepo.existsById(userId)) {
-            throw new UserNotFoundException(userId + " does not exist");
-        }
-        userRepo.deleteById(userId);
-    }
-
-    @Override
-    public List<UserDTO> getAllUsers() {
+    public List<UserDTO> getUserList() {
         List<User> allUsers = userRepo.findAll();
         return mapping.mapUserEntitiesToDtos(allUsers);
+    }
+
+    @Override
+    public Status getUserById(String userId) {
+        if (userRepo.existsById(userId)) {
+            User selectedUser = userRepo.getReferenceById(userId);
+            return mapping.toUserDTO(selectedUser);
+        }else {
+            return new SelectedErrorStatus(2,"user not found");
+        }
+    }
+
+    @Override
+    public void updateUser(String userId, UserDTO userDto) {
+
+    }
+
+    @Override
+    public void deleteUser(String userId) {
+        Optional<User> existedUser = userRepo.findById(userId);
+        if(!existedUser.isPresent()){
+            throw new UserNotFoundException("User with id " + userId + " not found");
+        }else {
+            userRepo.deleteById(userId);
+        }
+    }
+
+    @Override
+    public UserDetailsService userDetailsService() {
+        return  userName -> userRepo.findByEmail(userName)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 }

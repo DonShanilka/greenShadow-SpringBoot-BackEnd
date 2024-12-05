@@ -1,6 +1,7 @@
 package lk.ijse.greenshowspringbootbackend.util;
 
 import lk.ijse.greenshowspringbootbackend.dto.impl.*;
+import lk.ijse.greenshowspringbootbackend.dto.status.Status;
 import lk.ijse.greenshowspringbootbackend.entity.impl.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -68,5 +69,13 @@ public Field mapFieldDtoToEntity(FieldDTO fieldDTO) {
 
     public List<UserDTO> mapUserEntitiesToDtos(List<User> userEntities) {
         return modelMapper.map(userEntities, new TypeToken<List<UserDTO>>() {}.getType());
+    }
+
+    public Status toUserDTO(User selectedUser) {
+        return modelMapper.map(selectedUser, Status.class);
+    }
+
+    public User toUserEntity(UserDTO userDTO) {
+        return modelMapper.map(userDTO, User.class);
     }
 }
