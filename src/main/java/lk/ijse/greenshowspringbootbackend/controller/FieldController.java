@@ -1,6 +1,5 @@
 package lk.ijse.greenshowspringbootbackend.controller;
 
-import lk.ijse.greenshowspringbootbackend.dto.impl.FieldCropDTO;
 import lk.ijse.greenshowspringbootbackend.dto.impl.FieldDTO;
 import lk.ijse.greenshowspringbootbackend.exception.DataPersistException;
 import lk.ijse.greenshowspringbootbackend.service.FieldService;
@@ -15,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/field")
 public class FieldController {

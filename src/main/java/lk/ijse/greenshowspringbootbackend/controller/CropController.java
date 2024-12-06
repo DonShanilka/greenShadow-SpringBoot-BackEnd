@@ -15,9 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 
-@CrossOrigin
+
 @RestController
 @RequestMapping("api/v1/crops")
+@CrossOrigin(origins = "*")
 public class CropController {
 
     @Autowired

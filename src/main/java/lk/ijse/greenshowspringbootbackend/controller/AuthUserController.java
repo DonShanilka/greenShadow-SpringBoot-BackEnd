@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/auth")
+@CrossOrigin(origins = "*")
 public class AuthUserController {
 
     @Autowired
@@ -25,6 +26,7 @@ public class AuthUserController {
     public ResponseEntity<JWTAuthResponse> saveUser(@RequestBody UserDTO userDto) {
 
         try {
+            System.out.println("userDto = "+ userDto);
             return ResponseEntity.ok(authService.signUp(userDto));
         }catch (DataPersistException e){
             e.printStackTrace();
@@ -38,6 +40,7 @@ public class AuthUserController {
 
     @PostMapping(value = "/signIn",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JWTAuthResponse> signIn(@RequestBody SignIn signIn) {
+        System.out.println( "SignIn = " + signIn);
         System.out.println("test sign in end point");
         return ResponseEntity.ok(authService.signIn(signIn));
     }

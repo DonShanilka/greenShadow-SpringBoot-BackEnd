@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @RequiredArgsConstructor
@@ -23,6 +24,7 @@ public class SecurityConfig {
     private final UserService userService;
     private final JWTConfigFilter jwtConfigFilter;
     @Bean
+    @CrossOrigin(origins = "*")
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->

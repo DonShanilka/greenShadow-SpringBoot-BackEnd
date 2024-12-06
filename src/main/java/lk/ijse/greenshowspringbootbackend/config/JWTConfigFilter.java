@@ -20,7 +20,7 @@ import java.io.IOException;
 
 @Configuration
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:5050/")
+@CrossOrigin(origins = "*")
 public class JWTConfigFilter extends OncePerRequestFilter {
     private final JWTService jwtService;
     private final UserService userService;
