@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +23,7 @@ public class EquipmentController {
     private EquipmentService equipmentService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ADMINISTRATOR','MANAGER')")
     public ResponseEntity<Void> saveEquipment(
             @RequestPart("availableCount") String availableCount,
             @RequestPart("name") String name,
@@ -41,18 +43,21 @@ public class EquipmentController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ADMINISTRATOR','MANAGER')")
     public ResponseEntity<Void> updateEquipment(@RequestBody EquipmentDTO equipmentDTO) throws FileNotFoundException {
         equipmentService.updateEquipment(equipmentDTO);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping({"/{equipmentId}"})
+    @PreAuthorize("hasAnyRole('ADMINISTRATOR','MANAGER')")
     public ResponseEntity<Void> deleteEquipment(@PathVariable("equipmentId") String equipmentId) {
         equipmentService.deleteEquipment(equipmentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMINISTRATOR','MANAGER')")
     public ResponseUtil getAllEquipments() {
         return new ResponseUtil("Success", "Retrieved All Equipments", equipmentService.getAllEquipment());
     }

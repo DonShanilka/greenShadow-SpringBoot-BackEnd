@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,7 @@ public class LogController {
     LogService logService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public ResponseEntity<Void> saveLog(
             @RequestParam("logDate") String date,
             @RequestParam("logDetails") String details,
@@ -49,17 +51,20 @@ public class LogController {
     }
 
     @DeleteMapping("/{logCode}")
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public ResponseEntity<Void> deleteLog(@PathVariable("logCode") String logCode) {
         logService.deleteLog(logCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public ResponseUtil getAllLogs() {
         return new ResponseUtil("Done ", "Get All Logs ", logService.getLogs());
     }
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public ResponseEntity<Void> updateField(
             @RequestPart("logCode") String logCode,
             @RequestPart("logDate") String logDate,
@@ -85,18 +90,21 @@ public class LogController {
     }
 
     @PostMapping(value = "/logCrops", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public ResponseEntity<Void> saveLogCrops(@RequestBody CropLogDTO cropLogDTO) {
         logService.saveLogCrops(cropLogDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/logStaff", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public ResponseEntity<Void> saveLogStaff(@RequestBody LogStaffDTO logStaffDTO) {
         logService.saveLogStaff(logStaffDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/logField", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public ResponseEntity<Void> saveLogField(@RequestBody LogFieldDTO logFieldDTO) {
         logService.saveLogField(logFieldDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);

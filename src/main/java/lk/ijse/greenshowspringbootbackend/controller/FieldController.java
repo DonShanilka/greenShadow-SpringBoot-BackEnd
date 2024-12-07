@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +24,7 @@ public class FieldController {
     private FieldService fieldService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public ResponseEntity<Void> saveField(
             @RequestPart("fieldName") String fieldName,
             @RequestPart("location") String location,
@@ -52,6 +54,7 @@ public class FieldController {
     }
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public ResponseEntity<Void> updateField(
             @RequestPart("fieldCode") String fieldCode,
             @RequestPart("fieldName") String fieldName,
@@ -82,25 +85,16 @@ public class FieldController {
     }
 
     @DeleteMapping("/{fieldCode}")
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public ResponseEntity<Void> deleteField(@PathVariable("fieldCode") String fieldCode) throws FileNotFoundException {
         fieldService.deleteFieldById(fieldCode);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public List<FieldDTO> getAllFields() {
        return fieldService.getAllField();
     }
 
-//    @PostMapping(value = "/fieldCrops", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Void> saveFieldCrips(@RequestBody FieldCropDTO fieldCropDTO) throws FileNotFoundException {
-//        fieldService.saveFieldCrops(fieldCropDTO);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
-//
-//    @DeleteMapping(value = "/fieldCrops", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Void> deleteFieldCrop(@RequestBody FieldCropDTO fieldCropDTO) throws FileNotFoundException {
-//        fieldService.deleteFieldCrops(fieldCropDTO);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
 }

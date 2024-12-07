@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import lk.ijse.greenshowspringbootbackend.dto.impl.CropDTO;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Crop;
 import lk.ijse.greenshowspringbootbackend.entity.impl.Field;
-import lk.ijse.greenshowspringbootbackend.entity.impl.Staff;
 import lk.ijse.greenshowspringbootbackend.exception.*;
 import lk.ijse.greenshowspringbootbackend.repo.CropRepo;
 import lk.ijse.greenshowspringbootbackend.repo.FieldRepo;

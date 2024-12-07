@@ -5,9 +5,11 @@ import lk.ijse.greenshowspringbootbackend.dto.SuperDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Data
 public class CropDTO {
     private String cropCode;

@@ -30,6 +30,10 @@ public class JWTConfigFilter extends OncePerRequestFilter {
         String userEmail;
         String extractedJwtToken;
         System.out.println("JWT Token - " + initToken);
+
+//        initToken = " Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJST0xFX01BTkFHRVIifV0sInN1YiI6InNoYW5pbGthNzk5QGdtYWlsLmNvbSIsImlhdCI6MTczMzU0NTUxMCwiZXhwIjoxNzM0MTQ1NTEwfQ.z7kPOuhVaWQEOeiJI2cwFIC1CYxc1v_qh8L70Gcx5dA";
+
+        System.out.println("JWT Token - " + initToken);
         //Validate the token
         if(StringUtils.isEmpty(initToken) || !initToken.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);

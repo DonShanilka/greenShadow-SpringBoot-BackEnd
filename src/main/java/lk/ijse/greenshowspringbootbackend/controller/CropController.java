@@ -38,6 +38,7 @@ public class CropController {
             byte[] imageBytes = cropImage.getBytes();
             String imageBase64 = AppUtil.imageBase64(imageBytes);
             System.out.println(fieldCode);
+            System.out.println(cropName + scientificName+imageBase64+category+season+fieldCode);
             cropService.saveFieldCrops(new CropDTO(cropName,scientificName,imageBase64,category,season,fieldCode));
 
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -48,16 +49,16 @@ public class CropController {
         }
     }
 
-    @PutMapping(value = "{cropCode}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAnyRole('SCIENTIST','MANAGER')")
     public void updateCrops(
+            @RequestPart("cropCode") String cropCode,
             @RequestPart("cropName") String cropName,
             @RequestPart("scientificName") String scientificName,
             @RequestPart("cropImage") MultipartFile cropImage,
             @RequestPart("category") String category,
             @RequestPart("season") String season,
-            @RequestPart("fieldCode") String fieldCode,
-            @PathVariable("cropCode") String cropCode
+            @RequestPart("fieldCode") String fieldCode
     ) throws FileNotFoundException {
 
         String imageBase64 = "";
@@ -77,7 +78,7 @@ public class CropController {
         dtos.setCategory(category);
         dtos.setSeason(season);
         dtos.setFieldCode(fieldCode);
-
+        System.out.println(dtos);
         cropService.updateFieldCrops(dtos);
     }
 
