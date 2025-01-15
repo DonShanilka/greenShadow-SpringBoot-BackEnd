@@ -39,6 +39,7 @@ public class JWTConfigFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+
         extractedJwtToken = initToken.substring(7);
         userEmail = jwtService.extractUserName(extractedJwtToken);
         // user email

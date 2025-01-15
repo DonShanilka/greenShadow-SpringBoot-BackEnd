@@ -94,5 +94,4 @@ public class CropController {
     public ResponseUtil getAllCrops() {
         return new ResponseUtil("Success" ,"Get All Crops", cropService.getAllCrops());
     }
-
 }
