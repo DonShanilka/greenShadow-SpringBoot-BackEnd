@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SelectedErrorStatus implements Status {
-
     private int errorCode;
     private String errorMessage;
-
 }

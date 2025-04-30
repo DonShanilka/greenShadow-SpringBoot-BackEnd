@@ -11,8 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableWebSecurity
 @EnableMethodSecurity
 public class InitializeApplication {
+
     public static void main(String[] args){
-        SpringApplication.run(InitializeApplication.class,args);
+        SpringApplication.run(InitializeApplication.class, args);
     }
 
     @Bean
