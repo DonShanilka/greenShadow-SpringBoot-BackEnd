@@ -18,11 +18,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final UserService userService;
     private final JWTConfigFilter jwtConfigFilter;
+
+    public SecurityConfig(UserService userService, JWTConfigFilter jwtConfigFilter) {
+        this.userService = userService;
+        this.jwtConfigFilter = jwtConfigFilter;
+    }
+
     @Bean
     @CrossOrigin(origins = "*")
     public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception{

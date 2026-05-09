@@ -19,11 +19,17 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Configuration
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class JWTConfigFilter extends OncePerRequestFilter {
     private final JWTService jwtService;
     private final UserService userService;
+
+    public JWTConfigFilter(JWTService jwtService, UserService userService) {
+        this.jwtService = jwtService;
+        this.userService = userService;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String initToken = request.getHeader("Authorization");
