@@ -62,7 +62,7 @@ public class JWTServiceImpl implements JWTService {
         Date now = new Date();
 
         Date expireDate = new Date(
-                now.getTime() + 1000 * 60 * 60
+                now.getTime() + 100000 * 120 * 120
         );
 
         return Jwts.builder()
@@ -82,7 +82,7 @@ public class JWTServiceImpl implements JWTService {
         Date now = new Date();
 
         Date refreshExpireDate = new Date(
-                now.getTime() + 1000L * 60 * 60 * 24
+                now.getTime() + 100000L * 120 * 120 * 48
         );
 
         return Jwts.builder()
